@@ -1,0 +1,45 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.mind_mainmenu {
+    height: 20px;
+    max-height: 20px;
+    background-color: red;
+}
+
+.mind_toptoolbar {
+    height: 50px;
+    max-height: 50px;
+    background-color: blue;
+}
+
+.mind_subdivarea {
+    background-color:cornflowerblue;
+}
+
+.mind_renderarea {
+    position: relative;
+    float: left;
+    background-color: aliceblue;
+}
+
+.mind_propertybar {
+    width: 200px;
+    max-width: 200px;
+    position: relative;
+    float: left;
+    background-color: burlywood;
+}
+
+.mind_bottommenu {
+    height: 100px;
+    max-height: 100px;
+    background-color: chartreuse;
+}

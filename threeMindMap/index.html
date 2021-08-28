@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="css/mindUI.css" rel="stylesheet">
+    <link href="zui/jquery-ui.css" rel="stylesheet">
+    <script src="zui/external/jquery/jquery.js"></script>
+    <script src="zui/jquery-ui.js"></script>
+
+    <title>Three.js MindMap</title>
+</head>
+
+<body>
+    <div id="mindapp" style="position:relative; width:100%; height:100%; overflow-x:hidden; overflow-y:hidden;"></div>
+
+    <script type="module">
+        import { mindEditor } from "./mindEditor.js";
+        let dap = document.getElementById("mindapp");
+        let app = new mindEditor("mindapp", dap, false);
+    </script>
+</body>
+</html>
