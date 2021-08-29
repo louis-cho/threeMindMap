@@ -1,3 +1,5 @@
+import { mindTopToolBar } from "./mindTopToolBar.js";
+
 export class mindEditor {
 
     constructor(name, div_elem) {
@@ -19,6 +21,8 @@ export class mindEditor {
         this._div_bottomMenu = document.getElementById(name + "_bottomMenu");
 
         mindEditor.I = this;
+
+        this._topToolBar = new mindTopToolBar(this._name, this, this._div_topToolBar);
 
         window.addEventListener("resize", function () {
             mindEditor.I.OnResize();
