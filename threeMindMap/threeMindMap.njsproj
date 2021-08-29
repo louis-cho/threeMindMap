@@ -136,6 +136,12 @@
     <Content Include="mindMainMenu.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="mindTopToolBar.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="mindTopViewMode.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
     <Content Include="zui\AUTHORS.txt" />
     <Content Include="zui\external\jquery\jquery.js" />
