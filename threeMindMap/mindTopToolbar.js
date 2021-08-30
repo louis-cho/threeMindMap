@@ -1,4 +1,5 @@
 import { mindTopViewMode } from "./mindTopViewMode.js";
+import { mindTopViewEdit } from "./mindTopViewEdit.js";
 
 export class mindTopToolBar {
 
@@ -28,10 +29,10 @@ export class mindTopToolBar {
         this._viewExtra = true;
 
         
-         this._topViewMode = new mindTopViewMode(this._name, this._app, this._div);
+        this._topViewMode = new mindTopViewMode(this._name, this._app, this._div_topViewMode);
+         
+        this._topViewEdit = new mindTopViewEdit(this._name, this._app, this._div_topViewEdit);
          /* 
-         * this._topViewEdit = new mindTopViewEdit(this._name, this._app, this._div);
-         * 
          * this._topViewExtra = new mindTopViewExtra(this._name, this._app, this._div);
          */
     }

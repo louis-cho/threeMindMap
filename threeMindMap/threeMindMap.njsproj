@@ -139,6 +139,12 @@
     <Content Include="mindTopToolBar.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="mindTopViewEdit.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="mindTopViewExtra.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="mindTopViewMode.js">
       <SubType>Code</SubType>
     </Content>
