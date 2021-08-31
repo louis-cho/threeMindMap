@@ -1,5 +1,5 @@
 import { mindTopToolBar } from "./mindTopToolBar.js";
-
+import { Renderer } from "../Renderer/Renderer.js";
 export class mindEditor {
 
     constructor(name, div_elem) {
@@ -28,6 +28,15 @@ export class mindEditor {
             mindEditor.I.OnResize();
         });
 
+        this._renderer = new Renderer(this._div_renderArea);
+        this._renderer.createPerspectiveCamera(0, 30, 10, 1000, 1, 0.1, 1000);
+        this._renderer.createOrbitControl();
+        this._renderer.addSample();
+        this._render();
+        
+
+ 
+
         this.OnResize();
     }
 
@@ -49,7 +58,7 @@ export class mindEditor {
         idx++;
 
         // render area
-        ihtml[idx] = "<div class='mind_renderarea' id='" + name + "_renderArea'>render area</div>";
+        ihtml[idx] = "<div class='mind_renderarea' id='" + name + "_renderArea'></div>";
         idx++;
 
         // property bar
@@ -87,6 +96,14 @@ export class mindEditor {
 
         if (this._renderer)
             this._renderer.onWindowResize(this._canvas_width, this._canvas_height);
+
+    }
+
+    _render() {
+        requestAnimationFrame(mindEditor.I._render);
+
+        // Renderer.I.tick();
+        Renderer.I.render();
 
     }
 }
