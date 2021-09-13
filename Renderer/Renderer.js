@@ -194,6 +194,21 @@ export class Renderer {
         return this.isObjVisible(obj.parent);
     }
 
+    /**
+     * Ä¿¼­ÀÇ ÇÈ¼¿ ÁÂÇ¥¸¦ normalized ÁÂÇ¥·Î º¯È¯ÇÑ´Ù.
+     * @param {any} px Ä¿¼­ÀÇ ÇÈ¼¿ »ó x ÁÂÇ¥
+     * @param {any} py Ä¿¼­ÀÇ ÇÈ¼¿ »ó y ÁÂÇ¥
+     * @return {any} È­¸éÀÇ Áß½ÉÀÌ (0,0)ÀÎ Á¤±ÔÈ­µÈ ÁÂÇ¥
+     */
+    ScreenToNormalized(px, py) {
+
+        var cx = (px / this._app._div_rbase.clientWidth) * 2.0 - 1.0;
+        var cy = (1.0 - py / this._app._div_rbase.clientHeight) * 2.0 - 1.0;
+
+        var nc = new THREE.Vector2(cx, cy);
+        return nc;
+    }
+
     addSample() {
         let geom = new THREE.SphereBufferGeometry(10, 32, 32);
         let mat = new THREE.MeshBasicMaterial({ color: 0x4488aa });

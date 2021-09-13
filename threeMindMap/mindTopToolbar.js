@@ -1,6 +1,6 @@
 import { mindTopViewMode } from "./mindTopViewMode.js";
 import { mindTopViewEdit } from "./mindTopViewEdit.js";
-
+import { mindTopViewExtra } from "./mindTopViewExtra.js";
 export class mindTopToolBar {
 
     constructor(name, app, div_elem) {
@@ -32,9 +32,9 @@ export class mindTopToolBar {
         this._topViewMode = new mindTopViewMode(this._name, this._app, this._div_topViewMode);
          
         this._topViewEdit = new mindTopViewEdit(this._name, this._app, this._div_topViewEdit);
-         /* 
-         * this._topViewExtra = new mindTopViewExtra(this._name, this._app, this._div);
-         */
+         
+        this._topViewExtra = new mindTopViewExtra(this._name, this._app, this._div_topViewExtra);
+        
     }
 
     _appElementHTML(name) {

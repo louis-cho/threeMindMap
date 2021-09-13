@@ -11,37 +11,31 @@ body {
 .mind_mainmenu {
     height: 20px;
     max-height: 20px;
-    background-color: red;
 }
 
 .mind_toptoolbar {
-    height: 50px;
+    height: 100px;
+    min-height: 100px;
     max-height: 50px;
-    background-color: blue;
+
 }
 
-.mind_subdivarea {
-    background-color:cornflowerblue;
-}
 
 .mind_renderarea {
     position: relative;
     float: left;
-    background-color: aliceblue;
 }
 
 .mind_propertybar {
-    width: 200px;
+    width: 120px;
     max-width: 200px;
     position: relative;
     float: left;
-    background-color: burlywood;
 }
 
 .mind_bottommenu {
-    height: 100px;
+    height: 20px;
     max-height: 100px;
-    background-color: chartreuse;
 }
 
 .mindUI_topBar_Btn_Tool {
@@ -52,6 +46,22 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+}
+.mindUI_topToolbarPanel {
+    float: left;
+    color: black;
+    padding: 4px;
+    font-size: 8pt;
+}
+
+.mindUI_topToolbarSplitter {
+    float: left;
+    width: 2px;
+    vertical-align: center;
+    height: 48px;
+    margin: 8px;
+    background-color: #a7a7a7;
+    user-select: none;
 }
 
 canvas {

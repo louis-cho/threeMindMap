@@ -136,6 +136,9 @@
     <Content Include="mindMainMenu.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="mindTopic.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="mindTopToolBar.js">
       <SubType>Code</SubType>
     </Content>
