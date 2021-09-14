@@ -14,7 +14,7 @@ export class mindEditor {
 
         this._div_topToolBar = document.getElementById(name + "_topToolBar");
 
-        this._div_renderArea = document.getElementById(name + "_renderArea");
+        this._div_rbase = document.getElementById(name + "_renderArea");
 
         this._div_propertyBar = document.getElementById(name + "_propertyBar");
 
@@ -28,15 +28,12 @@ export class mindEditor {
             mindEditor.I.OnResize();
         });
 
-        this._renderer = new Renderer(this._div_renderArea);
-        this._renderer.createPerspectiveCamera(0, 30, 10, 1000, 1, 0.1, 1000);
+        this._renderer = new Renderer(this, this._div_rbase);
+        this._renderer.createPerspectiveCamera(10, 300, 10, 1000, 1, 0.1, 1000);
         this._renderer.createOrbitControl();
         this._renderer.addSample();
         this._render();
         
-
- 
-
         this.OnResize();
     }
 
@@ -79,7 +76,7 @@ export class mindEditor {
         this._div.style.width = this._divw + "px";
         this._div.style.height = this._divh + "px";
 
-        if (this._div_renderArea && this._div_propertyBar) {
+        if (this._div_rbase && this._div_propertyBar) {
             this._property_height = this._divh - $(this._div_topToolBar).height() - $(this._div_mainMenu).height() - $(this._div_bottomMenu).height();
             this._div_propertyBar.style.height = this._property_height + "px";
         }
@@ -91,8 +88,8 @@ export class mindEditor {
         this._canvas_height = this._property_height;
         this._canvas_aspect = this._canvas_width / this._canvas_height;
 
-        this._div_renderArea.style.width = this._canvas_width + "px";
-        this._div_renderArea.style.height = this._canvas_height + "px";
+        this._div_rbase.style.width = this._canvas_width + "px";
+        this._div_rbase.style.height = this._canvas_height + "px";
 
         if (this._renderer)
             this._renderer.onWindowResize(this._canvas_width, this._canvas_height);

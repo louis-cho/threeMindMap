@@ -43,10 +43,13 @@ export class mindTopViewEdit {
             // mouse move event 추가
 
             // rendering area에 mouse move 이벤트 달기
-            mindTopViewEdit.I._app._div_renderArea.addEventListener('mousemove', event => {
+            mindTopViewEdit.I._app._div_rbase.addEventListener('mousemove', event => {
                 let x = event.offsetX;
                 let y = event.offsetY;
                 mindLog(3, "mouse coord >> (" + x + "," + y + ")");
+
+                let coord3d = mindTopViewEdit.I._app._renderer.getMouseCoordinate(x, y);
+                mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
             });
 
             // mindTopViewEdit.I._app._renderer.getMouseCoordinate();

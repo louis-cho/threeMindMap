@@ -4,7 +4,9 @@ import { OrbitControls } from './jsm/controls/OrbitControls.js';
 
 export class Renderer {
 
-    constructor(div_elem) {
+    constructor(app, div_elem) {
+
+        this._app = app;
 
         this._div = div_elem;
 
@@ -222,8 +224,9 @@ export class Renderer {
         let vec = new THREE.Vector3();
         let pos = new THREE.Vector3();
 
-        vec = this.ScreenToNormalized(px, py);
+        let np = this.ScreenToNormalized(px, py);
 
+        vec.set(np.x, np.y, 0);
         // camera unproject를 통해 world 상의 좌표를 알아낸다.
         vec.unproject(this._camera);
         vec.sub(this._camera.position).normalize();
@@ -231,6 +234,8 @@ export class Renderer {
         let distance = - this._camera.position.z / vec.z;
 
         pos.copy(this._camera.position).add(vec.multiplyScalar(distance));
+
+        this._scene.children[1].position.set(pos.x, pos.y, pos.z);
 
         return pos;
     }

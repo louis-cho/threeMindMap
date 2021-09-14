@@ -2,7 +2,7 @@ var log_mode = 3;
 /**
  * type : 0 -> error
  * type : 1 -> warning
- * type : 2 -> etc
+ * type : >= 2 -> informative
  */
 export function mindLog(type, message) {
     if (type > log_mode)

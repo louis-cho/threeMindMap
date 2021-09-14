@@ -130,7 +130,16 @@
     <Content Include="index.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="mindCommander.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="mindConstant.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="mindEditor.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="mindGrid.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="mindMainMenu.js">
