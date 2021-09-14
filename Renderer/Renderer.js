@@ -217,4 +217,21 @@ export class Renderer {
         mesh.position.set(3, 4, 0);
         this._scene.add(mesh);
     }
+
+    getMouseCoordinate(px, py) {
+        let vec = new THREE.Vector3();
+        let pos = new THREE.Vector3();
+
+        vec = this.ScreenToNormalized(px, py);
+
+        // camera unproject를 통해 world 상의 좌표를 알아낸다.
+        vec.unproject(this._camera);
+        vec.sub(this._camera.position).normalize();
+
+        let distance = - this._camera.position.z / vec.z;
+
+        pos.copy(this._camera.position).add(vec.multiplyScalar(distance));
+
+        return pos;
+    }
 }

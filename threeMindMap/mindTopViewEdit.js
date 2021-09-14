@@ -1,3 +1,6 @@
+import { mindConstant } from "./mindConstant.js";
+import { mindLog } from "../MindLog/log.js";
+
 export class mindTopViewEdit {
 
     constructor(name, app, div_elem) {
@@ -11,6 +14,8 @@ export class mindTopViewEdit {
         this._div.innerHTML = this._appElementHTML(name);
 
         mindTopViewEdit.I = this;
+
+        this._mode = 0;
 
         this._btnTopic = document.getElementById(name + "_edit_topic");
         this._btnSubtopic = document.getElementById(name + "_edit_subtopic");
@@ -30,6 +35,29 @@ export class mindTopViewEdit {
         $(this._btnSummary).css("background-image", "url(images/Icon_Molecule_00.png)");
         $(this._btnNote).css("background-image", "url(images/Icon_Molecule_00.png)");
 
+        $(this._btnTopic).click(function () {
+            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
+
+            // raycaster 사용해서 핸들링하기
+
+            // mouse move event 추가
+
+            // rendering area에 mouse move 이벤트 달기
+            mindTopViewEdit.I._app._div_renderArea.addEventListener('mousemove', event => {
+                let x = event.offsetX;
+                let y = event.offsetY;
+                mindLog(3, "mouse coord >> (" + x + "," + y + ")");
+            });
+
+            // mindTopViewEdit.I._app._renderer.getMouseCoordinate();
+            // 엔터 혹은 마우스 클릭하면 추가하고 종료
+
+            // esc 누르면 아무것도 하지 않고 종료
+        });
+
+        $(this._btnSubtopic).click(function () {
+            this._mode = mindConstant.DefaultPref.Mode["subtopic"];
+        });
     }
 
     _appElementHTML(name) {

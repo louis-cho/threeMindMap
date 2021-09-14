@@ -15,7 +15,15 @@
     <div id="mindapp" style="position:relative; width:100%; height:100%; overflow-x:hidden; overflow-y:hidden;"></div>
 
     <script type="module">
+        import { mindLog, mindLogSetMode } from "../MindLog/log.js";
+        import { mindConstant } from "./mindConstant.js";
         import { mindEditor } from "./mindEditor.js";
+
+        let log_mode = 3;
+        mindLogSetMode(log_mode);
+
+        new mindConstant();
+
         let dap = document.getElementById("mindapp");
         let app = new mindEditor("mindapp", dap, false);
     </script>
