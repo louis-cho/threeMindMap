@@ -29,7 +29,7 @@ export class mindEditor {
         });
 
         this._renderer = new Renderer(this, this._div_rbase);
-        this._renderer.createPerspectiveCamera(10, 300, 10, 1000, 1, 0.1, 1000);
+        this._renderer.createPerspectiveCamera(10, 10, 800, 1000, 1, 0.1, 1000);
         this._renderer.createOrbitControl();
         this._renderer.addSample();
         this._render();

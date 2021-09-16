@@ -211,6 +211,62 @@ export class Renderer {
         return nc;
     }
 
+    /**
+     * 현재 threeMindMap Project에 알맞게 수정하고, 분석하기
+     * 
+     * @param {any} px
+     * @param {any} py
+     */
+    ScreenToWorld(px, py) {
+
+
+        var cx = (px / this._app._div_rbase.clientWidth) * 2.0 - 1.0;
+        var cy = (1.0 - py / this._app._div_rbase.clientHeight) * 2.0 - 1.0;
+
+        var wcv = new THREE.Vector3(cx, cy, -1).unproject(this._app._renderer._camera);
+
+        if (!this._app._ucsManager)
+            return wcv;
+
+        if (this._bScreenToWorld3D) {
+
+            var camDir = new THREE.Vector3();
+            this._app._renderer._camera.getWorldDirection(camDir);
+            var ray = new THREE.Ray(wcv, camDir);
+
+            var pop = this._app._ucsManager.GetOrigin();
+
+            if (this._pick3DPlanePt) {
+                pop = this._pick3DPlanePt;
+            }
+
+            var plane = new THREE.Plane().setFromNormalAndCoplanarPoint(camDir, pop);
+
+            var intr = new THREE.Vector3();
+            if (ray.intersectPlane(plane, intr)) {
+                return intr;
+            }
+
+            rayLog(3, "cannot raycast to Camera plane : " + wcv.x + "," + wcv.y + "," + wcv.z);
+
+        } else {
+
+            var camDir = new THREE.Vector3();
+            this._app._renderer._camera.getWorldDirection(camDir);
+            var ray = new THREE.Ray(wcv, camDir);
+            var plane = this._app._ucsManager.GetEditPlane();
+            var intr = new THREE.Vector3();
+            if (ray.intersectPlane(plane, intr)) {
+                return intr;
+            }
+
+            rayLog(3, "cannot raycast to UCS plane : " + wcv.x + "," + wcv.y + "," + wcv.z);
+
+        }
+
+        return wcv;
+    }
+
     addSample() {
         let geom = new THREE.SphereBufferGeometry(10, 32, 32);
         let mat = new THREE.MeshBasicMaterial({ color: 0x4488aa });
