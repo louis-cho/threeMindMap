@@ -93,8 +93,11 @@ export class mindTopViewEdit {
     }
 
 
-    UpdateTopic() {
-        mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
+    UpdateTopic(bSubTopic = false) {
+        if (!bSubTopic)
+            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
+        else
+            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["subtopic"];
 
         mindTopViewEdit.I._app._div_rbase.addEventListener('mousemove', event => {
             let x = event.offsetX;
@@ -106,7 +109,8 @@ export class mindTopViewEdit {
 
             mindTopViewEdit.I._app._topicPosition = coord3d;
 
-            mindTopViewEdit.I._app.CreateTopic(false);           // deafult param의 topic 객체를 renderer 상에 추가하자
+            if(!mindTopViewEdit.I._app._selectedTopic)
+                mindTopViewEdit.I._app.CreateTopic(bSubTopic);   // deafult param의 topic 객체를 renderer 상에 추가하자
             mindTopViewEdit.I._app.UpdateTopicPosition();        // topic 객체의 위치를 갱신하자
         });
 
@@ -114,4 +118,6 @@ export class mindTopViewEdit {
 
             // esc 누르면 아무것도 하지 않고 종료
     }
+
+  
 }

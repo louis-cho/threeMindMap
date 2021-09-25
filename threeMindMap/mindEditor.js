@@ -77,7 +77,7 @@ export class mindEditor {
         idx++;
 
         // property bar
-        ihtml[idx] = "<div class='mind_propertybar' id='" + name + "_propertyBar'>property bar</div></div>";
+        ihtml[idx] = "<div class='mind_propertybar' id='" + name + "_propertyBar'></div></div>";
         idx++;
     
         // bottom menu
