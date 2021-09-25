@@ -1,4 +1,4 @@
-import { mindTopViewMode } from "./mindTopViewMode.js";
+﻿import { mindTopViewMode } from "./mindTopViewMode.js";
 import { mindTopViewEdit } from "./mindTopViewEdit.js";
 import { mindTopViewExtra } from "./mindTopViewExtra.js";
 export class mindTopToolBar {

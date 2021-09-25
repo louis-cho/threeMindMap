@@ -1,6 +1,8 @@
-import { mindTopToolBar } from "./mindTopToolBar.js";
+ï»¿import { mindTopToolBar } from "./mindTopToolBar.js";
 import { Renderer } from "../Renderer/Renderer.js";
 import { mindConstant } from "./mindConstant.js";
+import { mindTopic } from './mindTopic.js';
+
 export class mindEditor {
 
     constructor(name, div_elem) {
@@ -31,24 +33,23 @@ export class mindEditor {
 
         this._renderer = new Renderer(this, this._div_rbase);
         this._renderer.createPerspectiveCamera(10, 10, 800, 1000, 1, 0.1, 1000);
-        this._renderer.addSample();
         this._render();
         
         this.OnResize();
 
+        this._selectedTopic = null;     // í˜„ì¬ ì„ íƒëœ topic
 
+        // render baseë¥¼ í´ë¦­ ì‹œ í˜„ì¬ í™œì„±í™”ëœ ëª¨ë“œì— ë”°ë¼ ê°œì²´ë¥¼ ì¶”ê°€í•´ì•¼ í•œë‹¤.
+        $(this._div_rbase).on("mousedown", function () {
 
-        // render base¸¦ Å¬¸¯ ½Ã ÇöÀç È°¼ºÈ­µÈ ¸ğµå¿¡ µû¶ó °³Ã¼¸¦ Ãß°¡ÇØ¾ß ÇÑ´Ù.
-        $(this._div_rbase).addEventListener("mousedown", function () {
-
-            // mode°¡ topicÀÎ °æ¿ì, topic¿¡ ´ëÇÑ default pref Å©±âÀÇ »ç°¢ÇüÀ» Ãß°¡ÇØº¸ÀÚ.
+            // modeê°€ topicì¸ ê²½ìš°, topicì— ëŒ€í•œ default pref í¬ê¸°ì˜ ì‚¬ê°í˜•ì„ ì¶”ê°€í•´ë³´ì.
             if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.Mode["topic"]) {
-                // ÇöÀç Scene¿¡ È°¼ºÈ­µÈ °´Ã¼¸¦ º¹»çÇØ¼­ ºÙ¿©³Ö±â
+                // í˜„ì¬ Sceneì— í™œì„±í™”ëœ ê°ì²´ë¥¼ ë³µì‚¬í•´ì„œ ë¶™ì—¬ë„£ê¸°
             }
 
-            // mode°¡ subtopicÀÎ °æ¿ì, subtopic¿¡ ´ëÇÑ default pref Å©±âÀÇ »ç°¢ÇüÀ» Ãß°¡ÇØº¸ÀÚ.
+            // modeê°€ subtopicì¸ ê²½ìš°, subtopicì— ëŒ€í•œ default pref í¬ê¸°ì˜ ì‚¬ê°í˜•ì„ ì¶”ê°€í•´ë³´ì.
             else if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.mode["subtopic"]) {
-                // ÇöÀç Scene¿¡ È°¼ºÈ­µÈ °´Ã¼¸¦ º¹»çÇØ¼­ ºÙ¿©³Ö±â
+                // í˜„ì¬ Sceneì— í™œì„±í™”ëœ ê°ì²´ë¥¼ ë³µì‚¬í•´ì„œ ë¶™ì—¬ë„£ê¸°
             }
 
         });
@@ -121,11 +122,21 @@ export class mindEditor {
 
     }
 
-    AddTopic() {
+    CreateTopic(bSubTopic = false) {
 
+        let topic = new mindTopic();
+        let topicMesh = null;
+
+        topicMesh = topic.createTopic(bSubTopic);
+        
+        if(topicMesh)
+            this._renderer._scene.add(topicMesh);
+
+        this._selectedTopic = topic;
     }
 
-    AddSubTopic() {
-
+    UpdateTopicPosition() {
+        if (this._selectedTopic && this._topicPosition)
+            this._selectedTopic._mesh.position.set(this._topicPosition.x, this._topicPosition.y, this._topicPosition.z  );
     }
 }

@@ -4,7 +4,7 @@ export class mindConstant {
 
         mindConstant.DefaultPref = {};
 
-        // Renderer Ãß°¡ ¸ðµå
+        // Renderer ì¶”ê°€ ëª¨ë“œ
         mindConstant.DefaultPref.Mode = [];
 
         mindConstant.DefaultPref.Mode["off"] = 0;
@@ -16,5 +16,15 @@ export class mindConstant {
 
         mindConstant.DefaultPref.Subtopic = {};
         mindConstant.DefaultPref.Subtopic.Size = [100, 30];
+
+        mindConstant.DefaultPref.Color = [1, 1, 1];
+
+        mindConstant.DefaultPref.Title = "No title";
+
+        mindConstant.DefaultPref.Position = [0, 0, 0];
+
+
+        mindConstant.DefaultPref.TextColor = [0, 0, 0];
+
     }
 }

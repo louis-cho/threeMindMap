@@ -1,4 +1,4 @@
-export class mindGrid {
+﻿export class mindGrid {
 
     constructor(name, app, renderer) {
 

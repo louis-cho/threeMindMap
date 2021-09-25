@@ -211,15 +211,14 @@ export class Renderer {
         return nc;
     }
 
-    addSample() {
-        let geom = new THREE.SphereBufferGeometry(10, 32, 32);
-        let mat = new THREE.MeshBasicMaterial({ color: 0x4488aa });
 
-        let mesh = new THREE.Mesh(geom, mat);
-        mesh.position.set(3, 4, 0);
-        this._scene.add(mesh);
-    }
-
+    /**
+     * È­¸é »óÀÇ x,y ÁÂÇ¥¸¦ ¹Þ¾Æ world ÁÂÇ¥ (z=0) ·Î º¯È¯
+     * 
+     * @param {any} px È­¸é »óÀÇ x ÁÂÇ¥ 
+     * @param {any} py È­¸é »óÀÇ y ÁÂÇ¥
+     * @return {any} º¯È¯µÈ world ÁÂÇ¥ (z = 0)
+     */
     getMouseCoordinate(px, py) {
         let vec = new THREE.Vector3();
         let pos = new THREE.Vector3();
@@ -234,8 +233,6 @@ export class Renderer {
         let distance = - this._camera.position.z / vec.z;
 
         pos.copy(this._camera.position).add(vec.multiplyScalar(distance));
-
-        this._scene.children[1].position.set(pos.x, pos.y, pos.z);
 
         return pos;
     }

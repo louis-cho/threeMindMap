@@ -1,4 +1,4 @@
-export class mindTopViewExtra {
+﻿export class mindTopViewExtra {
 
     constructor(name, app, div_elem) {
 

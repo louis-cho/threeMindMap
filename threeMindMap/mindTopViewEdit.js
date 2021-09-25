@@ -1,4 +1,4 @@
-import { mindConstant } from "./mindConstant.js";
+﻿import { mindConstant } from "./mindConstant.js";
 import { mindLog } from "../MindLog/log.js";
 
 export class mindTopViewEdit {
@@ -23,6 +23,8 @@ export class mindTopViewEdit {
         this._btnSummary = document.getElementById(name + "_edit_summary");
         this._btnNote = document.getElementById(name + "_edit_note");
 
+        this._topicPosition = null;
+
         $(this._btnTopic).button();
         $(this._btnSubtopic).button();
         $(this._btnRelation).button();
@@ -36,24 +38,28 @@ export class mindTopViewEdit {
         $(this._btnNote).css("background-image", "url(images/Icon_Molecule_00.png)");
 
         $(this._btnTopic).click(function () {
-            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
+            mindTopViewEdit.I.UpdateTopic();
+        });
+
+        $(this._btnSubtopic).click(function () {
+            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["subtopic"];
 
             mindTopViewEdit.I._app._div_rbase.addEventListener('mousemove', event => {
                 let x = event.offsetX;
                 let y = event.offsetY;
                 mindLog(3, "mouse coord >> (" + x + "," + y + ")");
 
-                let coord3d = mindTopViewEdit.I._app._renderer.getMouseCoordinate(x, y);
+                let coord3d = mindTopviewEdit.I._app._renderer.getMouseCoordinate(x, y);
                 mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
+
+                mindTopViewEdit.I._app._topicPosition = coord3d;    // 갱신된 topic의 위치를 저장
+
+                if (!mindTopViewEdit.I._app._selectedTopic)
+                    mindTopViewEdit.I._app.CreateTopic(true);       // selectedTopic이 부재하는 경우, default param의 subtopic 객체를 renderer 상에 추가하자
+
+                mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
             });
 
-            // ���� Ȥ�� ���콺 Ŭ���ϸ� �߰��ϰ� ����
-
-            // esc ������ �ƹ��͵� ���� �ʰ� ����
-        });
-
-        $(this._btnSubtopic).click(function () {
-            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["subtopic"];
         });
     }
 
@@ -84,5 +90,28 @@ export class mindTopViewEdit {
         idx++;
 
         return ihtml.join("");
+    }
+
+
+    UpdateTopic() {
+        mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
+
+        mindTopViewEdit.I._app._div_rbase.addEventListener('mousemove', event => {
+            let x = event.offsetX;
+            let y = event.offsetY;
+            mindLog(3, "mouse coord >> (" + x + "," + y + ")");
+
+            let coord3d = mindTopViewEdit.I._app._renderer.getMouseCoordinate(x, y);
+            mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
+
+            mindTopViewEdit.I._app._topicPosition = coord3d;
+
+            mindTopViewEdit.I._app.CreateTopic(false);           // deafult param의 topic 객체를 renderer 상에 추가하자
+            mindTopViewEdit.I._app.UpdateTopicPosition();        // topic 객체의 위치를 갱신하자
+        });
+
+            // 엔터 혹은 마우스 클릭하면 추가하고 종료
+
+            // esc 누르면 아무것도 하지 않고 종료
     }
 }

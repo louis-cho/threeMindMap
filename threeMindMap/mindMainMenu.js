@@ -1,4 +1,4 @@
-export class mindMainMenu {
+﻿export class mindMainMenu {
 
     constructor(name, app, div_elem) {
 

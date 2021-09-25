@@ -1,15 +1,19 @@
+﻿import { mindConstant } from './mindConstant.js';
+import * as THREE from '../build/three.module.js';
+
 export class mindTopic {
 
     constructor() {
         this._geom = null;
-        this._title = "";
-        this._color = null;
-        this._position = null;
-        this._size = null;
+        this._mesh = null;
+        this._title = mindConstant.DefaultPref.Title;
+        this._color = mindConstant.DefaultPref.Color;
+        this._position = mindConstant.DefaultPref.Position;
+        this._size = mindConstant.DefaultPref.Topic.Size;
         this._font = null;
         this._fontSize = 0;
         this._parent = null;
-        this._textColor = null;
+        this._textColor = mindConstant.DefaultPref.TextColor;
         this._border = null;
         this._icon = null;
     }
@@ -102,4 +106,24 @@ export class mindTopic {
         return this._border;
     }
 
+    createTopic() {
+        try {
+
+            let rect = new THREE.PlaneGeometry(this._size[0], this._size[1]);
+            this._geom = rect;
+
+            let color = new THREE.Color(this._color);
+            let material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
+
+            let plane = new THREE.Mesh(rect, material);
+            plane.position.set(this._position.x, this._position.y, this._position.z);
+
+            this._mesh = plane;
+
+            return plane;
+        }
+        catch (e) {
+            return null;
+        }
+    }
 }

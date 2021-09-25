@@ -1,4 +1,4 @@
-export class mindTopViewMode {
+﻿export class mindTopViewMode {
 
     constructor(name, app, div_elem) {
 
