@@ -1,5 +1,6 @@
 import { mindTopToolBar } from "./mindTopToolBar.js";
 import { Renderer } from "../Renderer/Renderer.js";
+import { mindConstant } from "./mindConstant.js";
 export class mindEditor {
 
     constructor(name, div_elem) {
@@ -30,11 +31,27 @@ export class mindEditor {
 
         this._renderer = new Renderer(this, this._div_rbase);
         this._renderer.createPerspectiveCamera(10, 10, 800, 1000, 1, 0.1, 1000);
-        this._renderer.createOrbitControl();
         this._renderer.addSample();
         this._render();
         
         this.OnResize();
+
+
+
+        // render base를 클릭 시 현재 활성화된 모드에 따라 개체를 추가해야 한다.
+        $(this._div_rbase).addEventListener("mousedown", function () {
+
+            // mode가 topic인 경우, topic에 대한 default pref 크기의 사각형을 추가해보자.
+            if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.Mode["topic"]) {
+                // 현재 Scene에 활성화된 객체를 복사해서 붙여넣기
+            }
+
+            // mode가 subtopic인 경우, subtopic에 대한 default pref 크기의 사각형을 추가해보자.
+            else if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.mode["subtopic"]) {
+                // 현재 Scene에 활성화된 객체를 복사해서 붙여넣기
+            }
+
+        });
     }
 
     _appElementHTML(name) {
@@ -101,6 +118,14 @@ export class mindEditor {
 
         // Renderer.I.tick();
         Renderer.I.render();
+
+    }
+
+    AddTopic() {
+
+    }
+
+    AddSubTopic() {
 
     }
 }

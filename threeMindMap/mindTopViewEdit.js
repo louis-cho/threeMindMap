@@ -38,11 +38,6 @@ export class mindTopViewEdit {
         $(this._btnTopic).click(function () {
             mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
 
-            // raycaster 사용해서 핸들링하기
-
-            // mouse move event 추가
-
-            // rendering area에 mouse move 이벤트 달기
             mindTopViewEdit.I._app._div_rbase.addEventListener('mousemove', event => {
                 let x = event.offsetX;
                 let y = event.offsetY;
@@ -52,14 +47,13 @@ export class mindTopViewEdit {
                 mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
             });
 
-            // mindTopViewEdit.I._app._renderer.getMouseCoordinate();
             // 엔터 혹은 마우스 클릭하면 추가하고 종료
 
             // esc 누르면 아무것도 하지 않고 종료
         });
 
         $(this._btnSubtopic).click(function () {
-            this._mode = mindConstant.DefaultPref.Mode["subtopic"];
+            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["subtopic"];
         });
     }
 
