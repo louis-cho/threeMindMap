@@ -2,6 +2,7 @@
 import { Renderer } from "../Renderer/Renderer.js";
 import { mindConstant } from "./mindConstant.js";
 import { mindTopic } from './mindTopic.js';
+import { mindPropertyBar } from "./mindPropertyBar.js";
 
 export class mindEditor {
 
@@ -24,6 +25,8 @@ export class mindEditor {
         this._div_bottomMenu = document.getElementById(name + "_bottomMenu");
 
         mindEditor.I = this;
+
+        this._propertyBar = new mindPropertyBar("mindmap", this, this._div_propertyBar);
 
         this._topToolBar = new mindTopToolBar(this._name, this, this._div_topToolBar);
 
@@ -48,7 +51,7 @@ export class mindEditor {
             }
 
             // mode가 subtopic인 경우, subtopic에 대한 default pref 크기의 사각형을 추가해보자.
-            else if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.mode["subtopic"]) {
+            else if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.Mode["subtopic"]) {
                 // 현재 Scene에 활성화된 객체를 복사해서 붙여넣기
             }
 
