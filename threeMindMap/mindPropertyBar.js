@@ -20,18 +20,18 @@ export class mindPropertyBar {
         idx++;
 
         // view type selection
-        ihtml[idx] = "<button class='ui-button ui-widget ui-corner-all mindUI_ViewType_Selection'>Style</button>";
+        ihtml[idx] = "<button class='ui-button ui-widget ui-corner-all mindUI_ViewType_Btn'>Style</button>";
         idx++;
-        ihtml[idx] = "<button class='ui-button ui-widget ui-corner-all mindUI_ViewType_Selection'>Map</button>";
+        ihtml[idx] = "<button class='ui-button ui-widget ui-corner-all mindUI_ViewType_Btn'>Map</button>";
         idx++;
 
         // structure
         ihtml[idx] = "<div class='mindUI_Property_Structure'>";
         idx++;
         // div text + selection
-        ihtml[idx] = "<div class='mindUI_Float_Left'>Structure</div>";
+        ihtml[idx] = "<div class='mind_Structure_Text'>Structure</div>";
         idx++;
-        ihtml[idx] = "<select class='mindUI_Float_Right' name='structure_style'></select>";
+        ihtml[idx] = "<select class='mindUI_Structure_Select' name='structure_style'></select>";
         idx++;
         
         ihtml[idx] = "</div>";
@@ -43,23 +43,23 @@ export class mindPropertyBar {
         idx++;
 
         // div text + selection
-        ihtml[idx] = "<div class='mindUI_Float_Left'>Topic</div>";
+        ihtml[idx] = "<div class='mindUI_Topic_Text'>Topic</div>";
         idx++;
-        ihtml[idx] = "<select name='topic_style' class='mindUI_Float_Right'></select>";
+        ihtml[idx] = "<select name='topic_style' class='mindUI_Topic_Select'></select>";
         idx++;
         ihtml[idx] = "<hr>";
         idx++;
 
         // checkboxradio + input box
-        ihtml[idx] = "<tr>";
+        ihtml[idx] = "<div class='mindUI_Fill'>";
         idx++;
-        ihtml[idx] = "<td><label for='fill'>Fill</label>";
+        ihtml[idx] = "<label class='mindUI_Fill_Label' for='fill'>Fill</label>";
         idx++;
-        ihtml[idx] = "<input type='radio' name='fill' id='fill'></td>";
+        ihtml[idx] = "<input class='mindUI_Fill_Radio' type='radio' name='fill' id='fill'>";
         idx++;
-        ihtml[idx] = "<td><input type='number'>";
+        ihtml[idx] = "<input class='mindUI_Fill_Input' type='number'>";
         idx++;
-        ihtml[idx] = "</td></tr>";
+        ihtml[idx] = "</div>";
         idx++;
 
         // checkboxradio

@@ -74,31 +74,59 @@ canvas {
 /*
     Property Bar
 */
-.mindUI_ViewType_Style .mindUI_ViewType_Map {
-    width: 100px;
+.mindUI_ViewType_Btn {
+    width: 95px;
     height: 45px;
     float: left;
     position: relative;
 }
 
 .mind_Structure_Text {
-
+    width: 95px;
+    height: auto;
+    float: left;
+    position: relative;
 }
 
 .mindUI_Structure_Select {
-
+    width: 95px;
+    height: 21px;
+    float: left;
+    position: relative;
 }
 
 .mindUI_Topic_Text {
-
+    width: 95px;
+    height: 21px;
+    float: left;
+    position: relative;
 }
 
 .mindUI_Topic_Select {
-
+    width: 95px;
+    height: auto;
+    float: left;
+    position: relative;
 }
 
-.mindUI_Fill_Check {
+.mindUI_Fill {
+    width: 200px;
+    float: left;
+    position: relative;
+}
+.mindUI_Fill_Label {
+    width: 130px;
+}
+.mindUI_Fill_Radio {
+    width: 10px;
+    float: left;
+    position: relative;
+}
 
+.mindUI_Fill_Input {
+    width: 20px;
+    float: left;
+    position: relative;
 }
 
 .mindUI_Border_Check {
