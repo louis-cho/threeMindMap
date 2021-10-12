@@ -45,7 +45,9 @@ export class Renderer {
 
         this._renderer.setSize(scr_width, scr_height);
 
-        this._container.appendChild(this._renderer.domElement);
+        this._canvas = this._renderer.domElement;
+
+        this._container.appendChild(this._canvas);
 
         this._raycaster = new THREE.Raycaster();
         this._intersectedObjects = [];
