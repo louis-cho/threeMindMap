@@ -1,6 +1,7 @@
 ﻿import { mindTopViewMode } from "./mindTopViewMode.js";
 import { mindTopViewEdit } from "./mindTopViewEdit.js";
 import { mindTopViewExtra } from "./mindTopViewExtra.js";
+
 export class mindTopToolBar {
 
     constructor(name, app, div_elem) {
@@ -48,7 +49,7 @@ export class mindTopToolBar {
         ihtml[idx] = "<div class='mindUI_topToolbarSplitter'></div>";
         idx++;
 
-        ihtml[idx] = "<div class=mindUI_topToolbarPanel' id='" + name + "_topViewEdit'></div>";
+        ihtml[idx] = "<div class='mindUI_topToolbarPanel' id='" + name + "_topViewEdit'></div>";
         idx++;
 
         ihtml[idx] = "<div class='mindUI_topToolbarSplitter'></div>";

@@ -14,10 +14,14 @@ body {
 }
 
 .mind_toptoolbar {
-    height: 100px;
-    min-height: 100px;
-    max-height: 50px;
-
+    float: left;
+    width: 100%;
+    height: 64px;
+    color: black;
+    background-color: #e6e6e6;
+    overflow: hidden;
+    user-select: none;
+    font-size: 7pt;
 }
 
 
