@@ -22,8 +22,6 @@ export class mindEditor {
 
         this._div_propertyBar = document.getElementById(name + "_propertyBar");
 
-        this._div_bottomMenu = document.getElementById(name + "_bottomMenu");
-
         mindEditor.I = this;
 
         this._propertyBar = new mindPropertyBar("mindmap", this, this._div_propertyBar);
@@ -82,10 +80,6 @@ export class mindEditor {
         // property bar
         ihtml[idx] = "<div class='mind_propertybar' id='" + name + "_propertyBar'></div></div>";
         idx++;
-    
-        // bottom menu
-        ihtml[idx] = "<div class='mind_bottommenu' id='" + name + "_bottomMenu'>bottom menu</div>";
-        idx++;
 
         return ihtml.join("");
     }
@@ -98,7 +92,7 @@ export class mindEditor {
         this._div.style.height = this._divh + "px";
 
         if (this._div_rbase && this._div_propertyBar) {
-            this._property_height = this._divh - $(this._div_topToolBar).height() - $(this._div_mainMenu).height() - $(this._div_bottomMenu).height();
+            this._property_height = this._divh - $(this._div_topToolBar).height() - $(this._div_mainMenu).height();
             this._div_propertyBar.style.height = this._property_height + "px";
         }
 
