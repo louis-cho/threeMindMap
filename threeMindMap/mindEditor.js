@@ -124,7 +124,7 @@ export class mindEditor {
         let topic = new mindTopic();
         let topicMesh = null;
 
-        topicMesh = topic.createTopic(bSubTopic);
+        topicMesh = topic.CreateTopic(bSubTopic, this._renderer._canvas, undefined);
         
         if(topicMesh)
             this._renderer._scene.add(topicMesh);

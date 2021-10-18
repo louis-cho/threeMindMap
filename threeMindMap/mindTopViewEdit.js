@@ -118,6 +118,4 @@ export class mindTopViewEdit {
 
             // esc 누르면 아무것도 하지 않고 종료
     }
-
-  
 }
