@@ -3,6 +3,7 @@ import { Renderer } from "../Renderer/Renderer.js";
 import { mindConstant } from "./mindConstant.js";
 import { mindTopic } from './mindTopic.js';
 import { mindPropertyBar } from "./mindPropertyBar.js";
+import * as THREE from '../build/three.module.js';
 
 export class mindEditor {
 
@@ -124,16 +125,26 @@ export class mindEditor {
         let topic = new mindTopic();
         let topicMesh = null;
 
-        topicMesh = topic.CreateTopic(bSubTopic, this._renderer._canvas, undefined);
+        topicMesh = topic.CreateTopic(bSubTopic, this._renderer._canvas, "sample topic");
         
-        if(topicMesh)
+        if (topicMesh) {
             this._renderer._scene.add(topicMesh);
+            let quaternion = new THREE.Quaternion();
+            quaternion.setFromUnitVectors(new THREE.Vector3(1, 0, 0), new THREE.Vector3(-1, 0, 0));
 
-        this._selectedTopic = topic;
+            topicMesh.setRotationFromQuaternion(quaternion);
+            this._selectedTopic = topic;
+            this._selectedTopic._mesh = topicMesh;
+        }
+        else {
+            this._selectedTopic = null;
+        }
+
     }
 
     UpdateTopicPosition() {
-        if (this._selectedTopic && this._topicPosition)
-            this._selectedTopic._mesh.position.set(this._topicPosition.x, this._topicPosition.y, this._topicPosition.z  );
+        if (this._selectedTopic && this._topicPosition) {
+            this._selectedTopic._mesh.position.set(this._topicPosition.x, this._topicPosition.y, this._topicPosition.z);
+        }
     }
 }

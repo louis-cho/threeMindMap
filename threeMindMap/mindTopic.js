@@ -1,6 +1,8 @@
 ﻿import { mindConstant } from './mindConstant.js';
 import * as THREE from '../build/three.module.js';
 
+var DESCENDER_ADJUST = 1.28;
+
 export class mindTopic {
 
     constructor() {
@@ -106,37 +108,22 @@ export class mindTopic {
         return this._border;
     }
 
-    /*
-    createTopic() {
-        try {
+    setMesh(mesh) {
+        this._mesh = mesh;
+    }
 
-            let rect = new THREE.PlaneGeometry(this._size[0], this._size[1]);
-            this._geom = rect;
+    getMesh() {
+        return this._mesh;
+    }
 
-            let color = new THREE.Color(this._color);
-            let material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
-
-            let plane = new THREE.Mesh(rect, material);
-            plane.position.set(this._position.x, this._position.y, this._position.z);
-
-            this._mesh = plane;
-
-            return plane;
-        }
-        catch (e) {
-            return null;
-        }
-    }*/
-
-
-    CreateTopic(bSubTopic, canvas, parameters) {
+    CreateTopic(bSubTopic, parameters, message) {
         if (parameters === undefined) parameters = {};
 
         let fontface = parameters.hasOwnProperty("fontface") ?
             parameters["fontface"] : "Arial";
 
         let fontsize = parameters.hasOwnProperty("fontsize") ?
-            parameters["fontsize"] : 18;
+            parameters["fontsize"] : 42;
 
         let borderThickness = parameters.hasOwnProperty("borderThickness") ?
             parameters["borderThickness"] : 4;
@@ -149,13 +136,15 @@ export class mindTopic {
 
         // let spriteAlignment = THREE.SpriteAlignment.topLeft;
 
-        // let canvas = mindTopic.I._app._renderer.domElement;
+        let canvas = document.createElement('canvas');
+
         let context = canvas.getContext('2d');
+
         context.font = "Bold " + fontsize + "px " + fontface;
 
         // size 데이터 받아오기 (높이는 폰트 사이즈에만 영향을 받는다)
         let metrics = context.measureText(message);
-        let textWidth = metrics.width;
+        let textWidth = metrics.width * 3;
 
         // background color
         context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
@@ -165,31 +154,37 @@ export class mindTopic {
         context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
             + borderColor.b + "," + borderColor.a + ")";
 
+
+
         context.lineWidth = borderThickness;
-        this.roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+        this.roundRect(context, 0, 0, textWidth + borderThickness, fontsize * 10 + borderThickness, 6);
         // 1.4는 baseline 아래에 나오는 g,j,p,q를 위한 factor다
 
-        // text color
-        context.fillStyle = "rgba(0,0,0,1.0)";
 
-        context.fillText(message, borderThickness, fontsize + borderThickness);
+        
+        // translate context to center of canvas
+        context.translate(canvas.width / 2, canvas.height / 2);
+        context.scale(-1, -1);
+        context.textAlign = 'center';
+        context.fillStyle = "rgba(0,0,0,1.0)";
+        context.fillText(message, 0, 0);
 
         // canvas contents will be used for a texture
         let texture = new THREE.Texture(canvas);
         texture.needsUpdate = true;
 
-        let spriteMaterial = new THREE.Spritematerial(
-            { map: texture, useScreenCoordinates: false });
+        let spriteMaterial = new THREE.SpriteMaterial(
+            { map: texture });
         let sprite = new THREE.Sprite(spriteMaterial);
-        sprite.scale.set(100, 50, 1.0);
-        return sprite;
+        sprite.scale.set(350, 150, 1.0);
 
+        return sprite;
     }
 
     roundRect(ctx, x, y, w, h, r) {
         ctx.beginPath();
         ctx.moveTo(x + r, y);
-        ctx.lienTo(x + w - r, y);
+        ctx.lineTo(x + w - r, y);
         ctx.quadraticCurveTo(x + w, y, x + w, y + r);
         ctx.lineTo(x + w, y + h - r);
         ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);

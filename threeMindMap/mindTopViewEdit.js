@@ -54,9 +54,9 @@ export class mindTopViewEdit {
 
                 mindTopViewEdit.I._app._topicPosition = coord3d;    // 갱신된 topic의 위치를 저장
 
-                if (!mindTopViewEdit.I._app._selectedTopic)
+                if (!mindTopViewEdit.I._app._selectedTopic) {
                     mindTopViewEdit.I._app.CreateTopic(true);       // selectedTopic이 부재하는 경우, default param의 subtopic 객체를 renderer 상에 추가하자
-
+                }
                 mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
             });
 
