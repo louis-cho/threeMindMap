@@ -26,5 +26,15 @@ export class mindConstant {
 
         mindConstant.DefaultPref.TextColor = [0, 0, 0];
 
+
+        // view mode
+        mindConstant.ViewMode = {};
+        mindConstant.ViewMode.WidgetView = 0;
+        mindConstant.ViewMode.TreeView = 1;
+
+
+        mindConstant.Message = {};
+        mindConstant.Message.NoSubTopic = "No SubTopic Exist";
+
     }
 }

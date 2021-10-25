@@ -2,7 +2,7 @@
 import { Renderer } from "../Renderer/Renderer.js";
 import { mindConstant } from "./mindConstant.js";
 import { mindTopic } from './mindTopic.js';
-import { mindPropertyBar } from "./mindPropertyBar.js";
+import { mindPropertyBar2 } from "./mindPropertyBar2.js";
 import * as THREE from '../build/three.module.js';
 
 export class mindEditor {
@@ -25,7 +25,7 @@ export class mindEditor {
 
         mindEditor.I = this;
 
-        this._propertyBar = new mindPropertyBar("mindmap", this, this._div_propertyBar);
+        this._propertyBar = new mindPropertyBar2("mindmap", this, this._div_propertyBar);
 
         this._topToolBar = new mindTopToolBar(this._name, this, this._div_topToolBar);
 
