@@ -19,9 +19,37 @@ export class mindPropertyBar2 {
 
         this.UpdateUI();
 
+        this._div_topic = document.getElementById(name + "_property_topic_text");
+
         this._div_subtopic = document.getElementById(name + "_property_subtopic");
 
-        $(this._div_subtopic).accordion();
+        this._div_position_x = document.getElementById(name + "_property_position_x");
+
+        this._div_position_y = document.getElementById(name + "_property_position_y");
+
+        this._div_text_colorpicker = document.getElementById(name + "_property_text_colorpicker");
+
+        this._div_border_colorpicker = document.getElementById(name + "_property_border_colorpicker");
+
+        $(this._div_text_colorpicker).colorpicker({
+            modal: true,
+            buttonColorize: true,
+            buttonImageOnly: true,
+            ok: function (event, formatted) {
+                event.target.style.backgroundColor = formatted.css;
+                // [formatted.rgb["r"], formatted.rgb["g"], formatted.rgb["b"]]);
+            }
+        });
+
+        $(this._div_border_colorpicker).colorpicker({
+            modal: true,
+            buttonColorize: true,
+            buttonImageOnly: true,
+            ok: function (event, formatted) {
+                event.target.style.backgroundColor = formatted.css;
+                // [formatted.rgb["r"], formatted.rgb["g"], formatted.rgb["b"]]);
+            }
+        });
     }
 
     _appElementHTML(name) {
@@ -65,6 +93,20 @@ export class mindPropertyBar2 {
                 this._div_viewsetting.innerHTML = this._appTreeView(this._name);
                 break;
         }
+
+        // view mode가 widget view인 경우, propery setting하기
+        if (this._viewmode === mindConstant.DefaultPref.WidgetView) {
+            // topic div elem
+
+            // subtopic div elem
+
+            // position div elem
+
+            // text color div elem
+
+            // border color div elem
+        }
+
     }
 
     _appWidgetView(name) {
@@ -75,8 +117,12 @@ export class mindPropertyBar2 {
         idx++;
 
         // topic label
-        
+        ihtml[idx] = "<div>Topic</div>";
+        idx++;
+
         // topic text
+        ihtml[idx] = "<input type='text' id='" + name + "_property_topic_text'></input>";
+        idx++;
 
         ihtml[idx] = "</div>";
         idx++;
@@ -105,8 +151,20 @@ export class mindPropertyBar2 {
         idx++;
 
         // position label
+        ihtml[idx] = "<div>Position</div>";
+        idx++;
 
         // x,y input with label
+        ihtml[idx] = "<table>";
+        idx++;
+
+        ihtml[idx] = "<tr><td>x: </td><td><input type='number' disabled='disabled' id='" + name + "_property_position_x'></input></td></tr>";
+        idx++;
+        ihtml[idx] = "<tr><td>y:</td><td><input type='number' disabled='disabled' id='" + name + "_property_position_y'></input></tr>";
+        idx++;
+
+        ihtml[idx] = "</table>";
+        idx++;
 
         ihtml[idx] = "</div>";
         idx++;
@@ -115,8 +173,13 @@ export class mindPropertyBar2 {
         idx++;
 
         // text color label
-
         // color picker
+        ihtml[idx] = "<table>";
+        idx++;
+        ihtml[idx] = "<tr><td>text color:</td><td><input type='text' id='" + name + "_property_text_colorpicker'></td></tr>";
+        idx++;
+        ihtml[idx] = "</table>";
+        idx++;
 
         ihtml[idx] = "</div>";
         idx++;
@@ -125,8 +188,14 @@ export class mindPropertyBar2 {
         idx++;
 
         // border color label
-
         // border color
+
+        ihtml[idx] = "<table>";
+        idx++;
+        ihtml[idx] = "<tr><td>border color:</td><td><input type='text' id='" + name + "_property_border_colorpicker'></td></tr>";
+        idx++;
+        ihtml[idx] = "</table>";
+        idx++;
 
         ihtml[idx] = "</div>";
         idx++;

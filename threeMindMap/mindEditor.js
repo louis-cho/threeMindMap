@@ -147,4 +147,18 @@ export class mindEditor {
             this._selectedTopic._mesh.position.set(this._topicPosition.x, this._topicPosition.y, this._topicPosition.z);
         }
     }
+
+    onMoveTopic(event) {
+
+    }
+
+    onFixTopic(event) {
+
+    }
+
+    onDeleteTopic() {
+        // remove selected topic
+    }
+
+
 }

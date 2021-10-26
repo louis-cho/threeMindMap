@@ -141,3 +141,7 @@ canvas {
 
 }
 
+.mindUI_Flexible {
+    float: left;
+    position: relative;
+}

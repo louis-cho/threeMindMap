@@ -60,6 +60,19 @@ export class mindTopViewEdit {
                 mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
             });
 
+            mindTopViewEdit.I._app._div_rbase.addEventListener('mousedown', event => {
+                let x = event.offsetX;
+                let y = event.offsetY;
+                mindLog(3, "mouse coord >> (" + x + "," + y + ")");
+
+                let coord3d = mindTopviewEdit.I._app._renderer.getMouseCoordinate(x, y);
+                mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
+
+                mindTopViewEdit.I._app._topicPosition = coord3d;    // 갱신된 topic의 위치를 저장
+
+                mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
+            });
+
         });
     }
 
