@@ -71,6 +71,8 @@ export class mindTopViewEdit {
                 mindTopViewEdit.I._app._topicPosition = coord3d;    // 갱신된 topic의 위치를 저장
 
                 mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
+
+                mindTopViewEdit.I._app._div_rbase.removeEventListener('mousemove', )
             });
 
         });
