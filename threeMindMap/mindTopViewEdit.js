@@ -38,43 +38,17 @@ export class mindTopViewEdit {
         $(this._btnNote).css("background-image", "url(images/Icon_Molecule_00.png)");
 
         $(this._btnTopic).click(function () {
-            mindTopViewEdit.I.UpdateTopic();
+            // create topic from mindTopicInstance
+            mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["topic"];
+            mindTopViewEdit.I._app._selectedTopic = mindTopViewEdit.I._app._topicInstance.CreateInstance(false, null);
+            mindTopViewEdit.I._app._renderer._scene.add(mindTopViewEdit.I._app._topicInstance._topic._mesh);
         });
 
         $(this._btnSubtopic).click(function () {
+            // create sub topic from mindTopicInstance
             mindTopViewEdit.I._mode = mindConstant.DefaultPref.Mode["subtopic"];
-
-            mindTopViewEdit.I._app._div_rbase.addEventListener('mousemove', event => {
-                let x = event.offsetX;
-                let y = event.offsetY;
-                mindLog(3, "mouse coord >> (" + x + "," + y + ")");
-
-                let coord3d = mindTopviewEdit.I._app._renderer.getMouseCoordinate(x, y);
-                mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
-
-                mindTopViewEdit.I._app._topicPosition = coord3d;    // 갱신된 topic의 위치를 저장
-
-                if (!mindTopViewEdit.I._app._selectedTopic) {
-                    mindTopViewEdit.I._app.CreateTopic(true);       // selectedTopic이 부재하는 경우, default param의 subtopic 객체를 renderer 상에 추가하자
-                }
-                mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
-            });
-
-            mindTopViewEdit.I._app._div_rbase.addEventListener('mousedown', event => {
-                let x = event.offsetX;
-                let y = event.offsetY;
-                mindLog(3, "mouse coord >> (" + x + "," + y + ")");
-
-                let coord3d = mindTopviewEdit.I._app._renderer.getMouseCoordinate(x, y);
-                mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
-
-                mindTopViewEdit.I._app._topicPosition = coord3d;    // 갱신된 topic의 위치를 저장
-
-                mindTopviewEdit.I._app.UpdateTopicPosition();       // subtopic 객체의 위치를 갱신하자
-
-                mindTopViewEdit.I._app._div_rbase.removeEventListener('mousemove', )
-            });
-
+            mindViewEdit.I._app._selectedTopic = mindTopViewEdit.I._app._topicInstance.CreateInstance(true, null);
+            mindTopViewEdit.I._app._renderer._scene.add(mindTopViewEdit.I._app._topicInstance._topic._mesh);
         });
     }
 

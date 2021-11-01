@@ -4,6 +4,7 @@ import { mindConstant } from "./mindConstant.js";
 import { mindTopic } from './mindTopic.js';
 import { mindPropertyBar2 } from "./mindPropertyBar2.js";
 import * as THREE from '../build/three.module.js';
+import { mindTopicInstance } from "./mindTopicInstance.js";
 
 export class mindEditor {
 
@@ -39,22 +40,51 @@ export class mindEditor {
         
         this.OnResize();
 
-        this._selectedTopic = null;     // 현재 선택된 topic
+        this._topicInstance = new mindTopicInstance(this, null);
 
-        // render base를 클릭 시 현재 활성화된 모드에 따라 개체를 추가해야 한다.
-        $(this._div_rbase).on("mousedown", function () {
-
-            // mode가 topic인 경우, topic에 대한 default pref 크기의 사각형을 추가해보자.
-            if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.Mode["topic"]) {
-                // 현재 Scene에 활성화된 객체를 복사해서 붙여넣기
+        // 1. pointer move
+        $(this._div_rbase).on("pointermove", function (event) {
+            // update current topic position
+            if (mindEditor.I.OnMouseMove(event)) {
+                event.stopPropagation();
+                event.preventDefault();
             }
-
-            // mode가 subtopic인 경우, subtopic에 대한 default pref 크기의 사각형을 추가해보자.
-            else if (mindEditor.I._topToolBar._topViewEdit._mode === mindConstant.DefaultPref.Mode["subtopic"]) {
-                // 현재 Scene에 활성화된 객체를 복사해서 붙여넣기
-            }
-
         });
+
+        // 2. pointer down
+        $(this._div_rbase).on("pointerdown", function () {
+            // check whether current topic is null
+            if (mindEditor.I.OnMouseDown(event)) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+    }
+
+    /**
+     * 선택된 topic 객체가 존재할 때, 마우스 이동 이벤트를 처리한다
+     * @param {Event} event mouse move event
+     */
+    OnMouseMove(event) {
+        if (this._topicInstance && this._topicInstance._isSelected) {
+            if (this._topicInstance.handleMouseMove(event, this))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * 선택된 topic 객체가 존재할 때, 마우스 다운 이벤트를 처리한다
+     * @param {Event} event mouse down event
+     */
+    OnMouseDown(event) {
+        if (this._topicInstance && this._topicInstance._isSelected) {
+            if (this._topicInstance.handleMouseDown(event, this))
+                return true;
+        }
+
+        return false;
     }
 
     _appElementHTML(name) {

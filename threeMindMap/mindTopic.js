@@ -18,6 +18,7 @@ export class mindTopic {
         this._textColor = mindConstant.DefaultPref.TextColor;
         this._border = null;
         this._icon = null;
+        this._message = "";
     }
 
     setGeom(geom) {
@@ -130,7 +131,7 @@ export class mindTopic {
 
         let borderColor = parameters.hasOwnProperty("borderColor") ?
             parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
-
+            
         let backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
             parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
 
