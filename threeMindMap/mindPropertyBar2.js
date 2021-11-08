@@ -21,7 +21,7 @@ export class mindPropertyBar2 {
 
         this._div_topic = document.getElementById(name + "_property_topic_text");
 
-        this._div_subtopic = document.getElementById(name + "_property_subtopic");
+        this._div_subtopic = document.getElementById(name + "_property_subtopic_paragraph");
 
         this._div_position_x = document.getElementById(name + "_property_position_x");
 
@@ -114,6 +114,12 @@ export class mindPropertyBar2 {
         if (!pickedObject)
             return;
 
+        $(this._div_topic).val(this._app._topicList[pickedObject._id]._topic._title);
+        $(this._div_subtopic).text(this._app._topicList[pickedObject._id]._topic._message);
+        $(this._div_position_x).val(this._app._topicList[pickedObject._id]._topic._position.x);
+        $(this._div_position_y).val(this._app._topicList[pickedObject._id]._topic._position.y);
+
+        /*
         this._div_topic.innerHTML = this._app._topicList[pickedObject._id]._topic._title;
 
         this._div_subtopic.innerHTML = this._app._topicList[pickedObject._id]._topic._message;
@@ -121,7 +127,7 @@ export class mindPropertyBar2 {
         this._div_position_x.innerHTML = this._app._topicList[pickedObject._id]._topic._position.x;
 
         this._div_position_y.innerHTML = this._app._topicList[pickedObject._id]._topic._position.y;
-
+        */
     }
 
     _appWidgetView(name) {
