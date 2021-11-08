@@ -109,6 +109,21 @@ export class mindPropertyBar2 {
 
     }
 
+    UpdateProperty(pickedObject) {
+
+        if (!pickedObject)
+            return;
+
+        this._div_topic.innerHTML = this._app._topicList[pickedObject._id]._topic._title;
+
+        this._div_subtopic.innerHTML = this._app._topicList[pickedObject._id]._topic._message;
+
+        this._div_position_x.innerHTML = this._app._topicList[pickedObject._id]._topic._position.x;
+
+        this._div_position_y.innerHTML = this._app._topicList[pickedObject._id]._topic._position.y;
+
+    }
+
     _appWidgetView(name) {
         let ihtml = [];
         let idx = 0;

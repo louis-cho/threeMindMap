@@ -5,6 +5,7 @@ import { mindTopic } from './mindTopic.js';
 import { mindPropertyBar2 } from "./mindPropertyBar2.js";
 import * as THREE from '../build/three.module.js';
 import { mindTopicInstance } from "./mindTopicInstance.js";
+import { mindLog } from '../MindLog/log.js';
 
 export class mindEditor {
 
@@ -41,6 +42,9 @@ export class mindEditor {
         this.OnResize();
 
         this._topicInstance = new mindTopicInstance(this, null);
+
+        this._topicList = [];
+
 
         // 1. pointer move
         $(this._div_rbase).on("pointermove", function (event) {
@@ -82,6 +86,18 @@ export class mindEditor {
         if (this._topicInstance && this._topicInstance._isSelected) {
             if (this._topicInstance.handleMouseDown(event, this))
                 return true;
+        }
+
+        else if (!this._topicInstance._isSelected) {
+            let normalizedPosition = this._renderer.ScreenToNormalized(event.offsetX, event.offsetY);
+            let pickedObject = this._renderer.pickObject(normalizedPosition);
+            if (pickedObject) {
+                // pickedObject의 아이디를 가져와서 topicList에서 찾자.
+                mindLog(3, pickedObject);
+                if (this._topicList[pickedObject._id])
+                    // property bar update
+                    this._propertyBar.UpdateProperty(pickedObject);
+            }
         }
 
         return false;

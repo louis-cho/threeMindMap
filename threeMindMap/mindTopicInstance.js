@@ -7,6 +7,27 @@ import * as THREE from "../build/three.module.js";
  * */
 export class mindTopicInstance {
 
+    static NextID = 0;
+
+    static AllocTopicID() {
+        let topicId = mindTopicInstance.NextID;
+        mindTopicInstance.NextID++;
+        return topicId;
+    }
+
+    ClearAllTopic() {
+        for (let i = 0; i < mindTopicInstance.NextID; ++i) {
+            this._app._renderer._scene.remove(this._app._topicList[i]);
+            this._app._topicList[i]._topic = null;
+            this._app._topicList[i]._isCreated = false;
+            this._app._topicList[i]._isSelected = false;
+            this._app._topicList[i]._topicPosition = null;
+        }
+
+        mindTopicInstance.NextID = 0;
+    }
+
+
     constructor(app, topic) {
         this._app = app;
 
@@ -160,6 +181,7 @@ export class mindTopicInstance {
         let sprite = new THREE.Sprite(spriteMaterial);
         sprite.scale.set(350, 150, 1.0);
 
+        sprite._id = mindTopicInstance.AllocTopicID();
         return sprite;
     }
 
@@ -206,11 +228,12 @@ export class mindTopicInstance {
 
         mindTopicInstance.I.UpdateTopicPosition();
 
+        mindTopicInstance.I._app._topicList[mindTopicInstance.I._topic._mesh._id] = mindTopicInstance.I;
+
         mindTopicInstance.I._isSelected = false;
         mindTopicInstance.I._isCreated = false;
-        mindTopicInstance.I._topicPosition = null;
-        mindTopicInstance.I._topic = null;
     }
+
 
     /**
      * mindTopicInstance의 보조 지점들을 표기한다.

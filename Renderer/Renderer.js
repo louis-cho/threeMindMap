@@ -178,10 +178,8 @@ export class Renderer {
             if (!this.isObjVisible(obj))
                 continue;
 
-            if (obj._canPick) {
-                this._pickedObject = obj;
-                return obj;
-            }
+            this._pickedObject = obj;
+            return obj;
         }
 
         return null;

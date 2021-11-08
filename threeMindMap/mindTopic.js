@@ -117,6 +117,14 @@ export class mindTopic {
         return this._mesh;
     }
 
+    setMessage(message) {
+        this._message = message;
+    }
+
+    getMessage() {
+        return this._message;
+    }
+
     CreateTopic(bSubTopic, parameters, message) {
         if (parameters === undefined) parameters = {};
 

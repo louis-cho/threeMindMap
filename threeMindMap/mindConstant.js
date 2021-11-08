@@ -1,3 +1,5 @@
+import * as THREE from "../build/three.module.js";
+
 export class mindConstant {
 
     constructor() {
@@ -21,7 +23,7 @@ export class mindConstant {
 
         mindConstant.DefaultPref.Title = "No title";
 
-        mindConstant.DefaultPref.Position = [0, 0, 0];
+        mindConstant.DefaultPref.Position = new THREE.Vector3(0,0,0);
 
 
         mindConstant.DefaultPref.TextColor = [0, 0, 0];
