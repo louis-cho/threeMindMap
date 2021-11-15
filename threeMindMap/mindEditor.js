@@ -6,10 +6,13 @@ import { mindPropertyBar2 } from "./mindPropertyBar2.js";
 import * as THREE from '../build/three.module.js';
 import { mindTopicInstance } from "./mindTopicInstance.js";
 import { mindLog } from '../MindLog/log.js';
+import { mindUtil } from "./mindUtil.js";
 
 export class mindEditor {
 
     constructor(name, div_elem) {
+
+        new mindUtil();
 
         this._name = name;
 
