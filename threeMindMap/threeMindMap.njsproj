@@ -164,6 +164,9 @@
     <Content Include="mindTopViewMode.js">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="mindUtil.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="README.md" />
     <Content Include="zui\AUTHORS.txt" />
     <Content Include="zui\external\jquery\jquery.js" />

@@ -79,8 +79,6 @@ export class mindPropertyBar2 {
     }
 
     UpdateUI() {
-        // mindUI Property Area 내의 모든 element 제거
-        // this._div_viewsetting.innerHTML = "";
 
         switch (this._viewmode) {
             case mindConstant.DefaultPref.WidgetView:
@@ -119,17 +117,17 @@ export class mindPropertyBar2 {
         $(this._div_position_x).val(this._app._topicList[pickedObject._id]._topic._position.x);
         $(this._div_position_y).val(this._app._topicList[pickedObject._id]._topic._position.y);
 
+        let textColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._textColor);
+        let borderColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._color);
+
         $(this._div_text_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._textColor));
         $(this._div_border_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._color));
-        /*
-        this._div_topic.innerHTML = this._app._topicList[pickedObject._id]._topic._title;
 
-        this._div_subtopic.innerHTML = this._app._topicList[pickedObject._id]._topic._message;
+        $(this._div_text_colorpicker).prop("value", textColor);
+        $(this._div_border_colorpicker).prop("value", borderColor);
 
-        this._div_position_x.innerHTML = this._app._topicList[pickedObject._id]._topic._position.x;
-
-        this._div_position_y.innerHTML = this._app._topicList[pickedObject._id]._topic._position.y;
-        */
+        $(this._div_text_colorpicker).css("background-color", "#" + textColor);
+        $(this._div_border_colorpicker).prop("background-color", "#" + borderColor);
     }
 
     _appWidgetView(name) {
