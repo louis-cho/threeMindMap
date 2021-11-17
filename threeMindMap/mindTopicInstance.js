@@ -56,7 +56,11 @@ export class mindTopicInstance {
         let coord3d = mindTopicInstance.I._app._renderer.getMouseCoordinate(x, y);
         mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
 
-        mindTopicInstance.I._topicPosition = coord3d;
+        let normalizedPosition = mindTopicInstance.I._app._renderer.ScreenToNormalized(event.offsetX, event.offsetY);
+
+        mindTopicInstance.I._topicPosition = normalizedPosition;
+        let pickedObject = mindTopicInstance.I._app._renderer.pickObject(normalizedPosition);
+        
 
         if (mindTopicInstance.I._isSelected) {
             if (!mindTopicInstance.I._isCreated) {
@@ -66,6 +70,10 @@ export class mindTopicInstance {
             }
 
             mindTopicInstance.I.UpdateTopicPosition();
+
+            if (pickedObject) {
+            mindTopicInstance.I._app._propertyBar.UpdateProperty(mindTopicInstance.I._app._topicList[pickedObject._id]);
+            }
         }
     }
 
@@ -75,7 +83,7 @@ export class mindTopicInstance {
      * @param {Boolean} bSubTopic sub topic 여부
      * @param {any} params topic 부가 정보
      */
-    CreateInstance(bSubTopic = false, params = null, message = "default text") {
+    CreateInstance(bSubTopic = false, params = null) {
 
         let topic = new mindTopic();
         let topicMesh = null;
@@ -113,9 +121,12 @@ export class mindTopicInstance {
 
             if (params._mesh)
                 topic.setMesh(params._mesh);
+
+            if (params._message)
+                topic.setMessage(params._message);
         }
 
-        topicMesh = this.CreateMesh(bSubTopic, params, message);
+        topicMesh = this.CreateMesh(bSubTopic, params);
         topic._mesh = topicMesh;
         this._topic = topic;
 
@@ -123,7 +134,7 @@ export class mindTopicInstance {
         this._isSelected = true;
     }
 
-    CreateMesh(bSubTopic, parameters, message) {
+    CreateMesh(bSubTopic, parameters) {
         if (!parameters) {
             parameters = {};
         }
@@ -142,6 +153,9 @@ export class mindTopicInstance {
 
         let backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
             parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
+
+        let message = parameters.hasOwnProperty("message") ?
+            parameters["message"] : "default text";
 
         let canvas = document.createElement('canvas');
 
@@ -207,6 +221,8 @@ export class mindTopicInstance {
     UpdateTopicPosition() {
         if (this._topic && this._topicPosition) {
             this._topic._mesh.position.set(this._topicPosition.x, this._topicPosition.y, this._topicPosition.z);
+            this._topic._position.x = this._topicPosition.x;
+            this._topic._position.y = this._topicPosition.y;
         }
     }
 
@@ -224,7 +240,9 @@ export class mindTopicInstance {
         let coord3d = mindTopicInstance.I._app._renderer.getMouseCoordinate(x, y);
         mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
 
-        mindTopicInstance.I._topicPosition = coord3d;
+        let normalizedPosition = mindTopicInstance.I._app._renderer.ScreenToNormalized(event.offsetX, event.offsetY);
+
+        mindTopicInstance.I._topicPosition = normalizedPosition;
 
         mindTopicInstance.I.UpdateTopicPosition();
 
