@@ -97,9 +97,11 @@ export class mindEditor {
             if (pickedObject) {
                 // pickedObject의 아이디를 가져와서 topicList에서 찾자.
                 mindLog(3, pickedObject);
-                if (this._topicList[pickedObject._id])
+                if (this._topicList[pickedObject._id]) {
+                    this._selectedTopic = this._topicList[pickedObject._id];
                     // property bar update
                     this._propertyBar.UpdateProperty(pickedObject);
+                }
             }
         }
 

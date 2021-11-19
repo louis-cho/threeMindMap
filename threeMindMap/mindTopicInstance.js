@@ -21,7 +21,6 @@ export class mindTopicInstance {
             this._app._topicList[i]._topic = null;
             this._app._topicList[i]._isCreated = false;
             this._app._topicList[i]._isSelected = false;
-            this._app._topicList[i]._topicPosition = null;
         }
 
         mindTopicInstance.NextID = 0;
@@ -37,7 +36,7 @@ export class mindTopicInstance {
 
         this._isCreated = false;
 
-        this._topicPosition = null;
+        this._param = {};
 
         mindTopicInstance.I = this;
     }
@@ -58,7 +57,6 @@ export class mindTopicInstance {
 
         let normalizedPosition = mindTopicInstance.I._app._renderer.ScreenToNormalized(event.offsetX, event.offsetY);
 
-        mindTopicInstance.I._topicPosition = normalizedPosition;
         let pickedObject = mindTopicInstance.I._app._renderer.pickObject(normalizedPosition);
         
 
@@ -69,10 +67,10 @@ export class mindTopicInstance {
                 mindTopicInstance.I._isCreated = true;
             }
 
-            mindTopicInstance.I.UpdateTopicPosition();
+            mindTopicInstance.I.UpdateTopicPosition(coord3d.x, coord3d.y, 0);
 
             if (pickedObject) {
-            mindTopicInstance.I._app._propertyBar.UpdateProperty(mindTopicInstance.I._app._topicList[pickedObject._id]);
+                mindTopicInstance.I._app._propertyBar.UpdateProperty(mindTopicInstance.I._app._topicList[pickedObject._id]);
             }
         }
     }
@@ -127,9 +125,9 @@ export class mindTopicInstance {
         }
 
         topicMesh = this.CreateMesh(bSubTopic, params);
+        topicMesh.position.set(0, 1000, 0);
         topic._mesh = topicMesh;
         this._topic = topic;
-
         this._isCreated = true;
         this._isSelected = true;
     }
@@ -218,11 +216,10 @@ export class mindTopicInstance {
     /**
      * Topic의 위치를 갱신한다.
      * */
-    UpdateTopicPosition() {
-        if (this._topic && this._topicPosition) {
-            this._topic._mesh.position.set(this._topicPosition.x, this._topicPosition.y, this._topicPosition.z);
-            this._topic._position.x = this._topicPosition.x;
-            this._topic._position.y = this._topicPosition.y;
+    UpdateTopicPosition(x, y, z) {
+        if (this._topic) {
+            this._topic._position.set(x, y, z);
+            this._topic._mesh.position.set(x, y, z);
         }
     }
 
@@ -240,13 +237,10 @@ export class mindTopicInstance {
         let coord3d = mindTopicInstance.I._app._renderer.getMouseCoordinate(x, y);
         mindLog(3, "3d coord >> (" + coord3d.x + "," + coord3d.y + "," + coord3d.z + ")");
 
-        let normalizedPosition = mindTopicInstance.I._app._renderer.ScreenToNormalized(event.offsetX, event.offsetY);
 
-        mindTopicInstance.I._topicPosition = normalizedPosition;
+        mindTopicInstance.I.UpdateTopicPosition(coord3d.x, coord3d.y, 0);
 
-        mindTopicInstance.I.UpdateTopicPosition();
-
-        mindTopicInstance.I._app._topicList[mindTopicInstance.I._topic._mesh._id] = mindTopicInstance.I;
+        mindTopicInstance.I._app._topicList[mindTopicInstance.I._topic._mesh._id] = mindTopicInstance.I._topic;
 
         mindTopicInstance.I._isSelected = false;
         mindTopicInstance.I._isCreated = false;
@@ -272,5 +266,18 @@ export class mindTopicInstance {
 
     getTopic() {
         return this._topic;
+    }
+
+    clone() {
+
+        let topicInstance = new mindTopicInstance(this._app, this._topic.clone());
+
+        topicInstance._isCreated = this._isCreated;
+        topicInstance._isSelected = this._isSelected;
+        // mesh의 position을 설정하는 방법으로 변경하기
+        // topicInstance._topicPosition = this._topicPosition.clone();
+        // param은 어떻게 ??
+
+        return topicInstance;
     }
 }

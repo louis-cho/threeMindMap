@@ -8,17 +8,32 @@ export class mindTopic {
     constructor() {
         this._geom = null;
         this._mesh = null;
-        this._title = mindConstant.DefaultPref.Title;
+        this._topic = mindConstant.DefaultPref.Title;
         this._color = mindConstant.DefaultPref.Color;
         this._position = mindConstant.DefaultPref.Position;
         this._size = mindConstant.DefaultPref.Topic.Size;
-        this._font = null;
-        this._fontSize = 0;
         this._parent = null;
         this._textColor = mindConstant.DefaultPref.TextColor;
         this._border = null;
         this._icon = null;
-        this._message = "";
+        this._subtopic = "";
+
+        this._parameters = {
+            "fontface": "Arial",
+            "fontsize": 42,
+            "borderThickness": 4,
+            "borderColor": {
+                "r": 0,
+                "g": 0,
+                "b": 0
+            },
+            "backgroundColor": {
+                "r": 255,
+                "g": 255,
+                "b": 255,
+                "a": 1.0
+            }
+        };
     }
 
     setGeom(geom) {
@@ -62,19 +77,19 @@ export class mindTopic {
     }
 
     setFont(font) {
-        this._font = font;
+        this._parameters["font"] = font;
     }
 
     getFont() {
-        return this._font;
+        return this._parameters["font"];
     }
 
     setFontSize(fontSize) {
-        this._fontSize = fontSize;
+        this._parameters["fontsize"] = fontSize;
     }
 
     getFontSize() {
-        return this._fontSize;
+        return this._parameters["fontsize"];
     }
 
     setParent(parent) {
@@ -117,30 +132,30 @@ export class mindTopic {
         return this._mesh;
     }
 
-    setMessage(message) {
-        this._message = message;
+    setSubTopic(subtopic) {
+        this._subtopic = subtopic;
     }
 
-    getMessage() {
-        return this._message;
+    getSubTopic() {
+        return this._subtopic;
     }
 
-    CreateTopic(bSubTopic, parameters, message) {
+    CreateTopic(bSubTopic, topic) {
         if (parameters === undefined) parameters = {};
 
-        let fontface = parameters.hasOwnProperty("fontface") ?
+        let fontface = this._parameters.hasOwnProperty("fontface") ?
             parameters["fontface"] : "Arial";
 
-        let fontsize = parameters.hasOwnProperty("fontsize") ?
+        let fontsize = this._parameters.hasOwnProperty("fontsize") ?
             parameters["fontsize"] : 42;
 
-        let borderThickness = parameters.hasOwnProperty("borderThickness") ?
+        let borderThickness = this._parameters.hasOwnProperty("borderThickness") ?
             parameters["borderThickness"] : 4;
 
-        let borderColor = parameters.hasOwnProperty("borderColor") ?
+        let borderColor = this._parameters.hasOwnProperty("borderColor") ?
             parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
             
-        let backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
+        let backgroundColor = this._parameters.hasOwnProperty("backgroundColor") ?
             parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
 
         // let spriteAlignment = THREE.SpriteAlignment.topLeft;
@@ -152,7 +167,7 @@ export class mindTopic {
         context.font = "Bold " + fontsize + "px " + fontface;
 
         // size 데이터 받아오기 (높이는 폰트 사이즈에만 영향을 받는다)
-        let metrics = context.measureText(message);
+        let metrics = context.measureText(topic);
         let textWidth = metrics.width * 3;
 
         // background color
@@ -176,7 +191,7 @@ export class mindTopic {
         context.scale(-1, -1);
         context.textAlign = 'center';
         context.fillStyle = "rgba(0,0,0,1.0)";
-        context.fillText(message, 0, 0);
+        context.fillText(topic, 0, 0);
 
         // canvas contents will be used for a texture
         let texture = new THREE.Texture(canvas);
@@ -204,6 +219,31 @@ export class mindTopic {
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
+    }
+
+    clone() {
+        let topic = new mindTopic();
+
+        if (this._geom) {
+            topic._geom = this._geom.clone();
+        }
+
+        if (this._mesh) {
+            topic._mesh = this._mesh.clone();
+        }
+
+        topic._title = this._title;
+        topic._color = this._color;
+        topic._position = this._position.clone();
+        topic._size = this._size.slice();
+        topic._fontSize = this._fontSize;
+        topic._parent = this._parent;
+        topic._textColor = this._textColor.slice();
+        topic._border = this._border;
+        topic._icon = this._icon;
+        topic._subtopic = this._subtopic;
+
+        return topic;
     }
 
 }

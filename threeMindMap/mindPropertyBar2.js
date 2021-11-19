@@ -1,5 +1,7 @@
 ﻿import { mindConstant } from "./mindConstant.js";
+import { mindPropertyBar } from "./mindPropertyBar.js";
 import { mindUtil } from './mindUtil.js';
+import * as THREE from "../build/three.module.js";
 
 export class mindPropertyBar2 {
 
@@ -31,6 +33,14 @@ export class mindPropertyBar2 {
 
         this._div_border_colorpicker = document.getElementById(name + "_property_border_colorpicker");
 
+        this._btn_apply = document.getElementById(name + "_property_apply_btn");
+
+        $(this._btn_apply).button();
+
+        $(this._btn_apply).click(function () {
+            mindPropertyBar2.I.OnApply();
+        });
+
         $(this._div_text_colorpicker).colorpicker({
             modal: true,
             buttonColorize: true,
@@ -50,6 +60,8 @@ export class mindPropertyBar2 {
                 // [formatted.rgb["r"], formatted.rgb["g"], formatted.rgb["b"]]);
             }
         });
+
+        mindPropertyBar2.I = this;
     }
 
     _appElementHTML(name) {
@@ -112,16 +124,16 @@ export class mindPropertyBar2 {
         if (!pickedObject)
             return;
 
-        $(this._div_topic).val(this._app._topicList[pickedObject._id]._topic._title);
-        $(this._div_subtopic).text(this._app._topicList[pickedObject._id]._topic._message);
-        $(this._div_position_x).val(this._app._topicList[pickedObject._id]._topic._position.x);
-        $(this._div_position_y).val(this._app._topicList[pickedObject._id]._topic._position.y);
+        $(this._div_topic).val(this._app._topicList[pickedObject._id]._topic);
+        $(this._div_subtopic).text(this._app._topicList[pickedObject._id]._subtopic);
+        $(this._div_position_x).val(this._app._topicList[pickedObject._id]._mesh.position.x);
+        $(this._div_position_y).val(this._app._topicList[pickedObject._id]._mesh.position.y);
 
-        let textColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._textColor);
-        let borderColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._color);
+        let textColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._textColor);
+        let borderColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._color);
 
-        $(this._div_text_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._textColor));
-        $(this._div_border_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._topic._color));
+        $(this._div_text_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._textColor));
+        $(this._div_border_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._color));
 
         $(this._div_text_colorpicker).prop("value", textColor);
         $(this._div_border_colorpicker).prop("value", borderColor);
@@ -225,11 +237,73 @@ export class mindPropertyBar2 {
         idx++;
 
         // apply button
+        ihtml[idx] = "<button class='ui-button ui-widget ui-corner-all mindUI_ViewType_Btn' id='" + name + "_property_apply_btn'>Apply</button>";
+        idx++;
 
         ihtml[idx] = "</div>";
         idx++;
 
         return ihtml.join("");
+    }
+
+    OnChangePositionX(v) {
+        if (!isNaN(v)) {
+            this._app._topicInstance._topic._position.x = parseFloat(v);
+        }
+            //let pos = this._app._topicInstance._topic._position;
+            //this._app._topicInstance.UpdateTopicPosition(pos.x, pos.y, pos.z);
+    }
+
+    OnChangePositionY(v) {
+        if (!isNaN(v)) {
+            this._app._topicInstance._topic._position.y = parseFloat(v);
+        }
+        
+    }
+
+    OnChangeTextColor(v) {
+        this._app._topicInstance._textColor = v;
+    }
+
+    OnChangeBorderColor(v) {
+        this._app._topicInstance._border = v;
+   }
+
+    OnChangeSubTopic(v) {
+        this._app._topicInstance._message = v;
+  }
+
+    OnChangeTopic(v) {
+        this._app._topicInstance._topic._title = v;
+    }
+
+    OnApply() {
+        // topic
+        this.OnChangeTopic($(this._div_topic).val());
+        // subtopic
+        this.OnChangeSubTopic($(this._div_subtopic).val());
+        // position x
+        this.OnChangePositionX($(this._div_position_x).val());
+        // position y
+        this.OnChangePositionY($(this._div_position_y).val());
+        // text color
+        this.OnChangeTextColor(mindUtil.HTMLFormattedColorToRGB($(this._div_text_colorpicker).val()));
+        // border color
+        this.OnChangeBorderColor(mindUtil.HTMLFormattedColorToRGB($(this._div_border_colorpicker).val()));
+
+        // update mesh (렌더러에서 없애고 새로 만들기)
+        mindPropertyBar2.I._app._renderer._scene.remove(mindPropertyBar2.I._app._selectedTopic._mesh);
+
+        let params = {};
+        params._title = this._app._topicInstance._topic._title;
+        params._message = this._app._topicInstance._topic._message;
+        params._position = new THREE.Vector3(parseFloat($(this._div_position_x).val()), parseFloat($(this._div_position_y).val()), 0);
+        
+
+
+        mindPropertyBar2.I._app._selectedTopic = mindPropertyBar2.I._app._topicInstance.CreateInstance(false, params);
+        mindPropertyBar2.I._app._renderer._scene.add(mindPropertyBar2.I._app._topicInstance._topic._mesh);
+
     }
 
     _appTreeView(name) {
