@@ -14,9 +14,9 @@ export class mindTopic {
         this._size = mindConstant.DefaultPref.Topic.Size;
         this._parent = null;
         this._textColor = mindConstant.DefaultPref.TextColor;
-        this._border = null;
+        this._borderColor = mindConstant.DefaultPref.BorderColor;
         this._icon = null;
-        this._subtopic = "";
+        this._message = "";
 
         this._parameters = {
             "fontface": "Arial",
@@ -116,12 +116,12 @@ export class mindTopic {
         return this._icon;
     }
 
-    setBorder(border) {
-        this._border = border;
+    setBorderColor(borderColor) {
+        this._borderColor = borderColor;
     }
 
-    getBorder() {
-        return this._border;
+    getBorderColor() {
+        return this._borderColor;
     }
 
     setMesh(mesh) {
@@ -132,31 +132,31 @@ export class mindTopic {
         return this._mesh;
     }
 
-    setSubTopic(subtopic) {
-        this._subtopic = subtopic;
+    setMessage(message) {
+        this._message = message;
     }
 
-    getSubTopic() {
-        return this._subtopic;
+    getMessage() {
+        return this._message;
     }
 
-    CreateTopic(bSubTopic, topic) {
+    CreateTopic(bMessage, topic) {
         if (parameters === undefined) parameters = {};
 
-        let fontface = this._parameters.hasOwnProperty("fontface") ?
-            parameters["fontface"] : "Arial";
+        let fontface = this._parameters.hasOwnProperty("_fontface") ?
+            parameters["_fontface"] : "Arial";
 
-        let fontsize = this._parameters.hasOwnProperty("fontsize") ?
-            parameters["fontsize"] : 42;
+        let fontsize = this._parameters.hasOwnProperty("_fontsize") ?
+            parameters["_fontsize"] : 42;
 
-        let borderThickness = this._parameters.hasOwnProperty("borderThickness") ?
-            parameters["borderThickness"] : 4;
+        let borderThickness = this._parameters.hasOwnProperty("_borderThickness") ?
+            parameters["_borderThickness"] : 4;
 
-        let borderColor = this._parameters.hasOwnProperty("borderColor") ?
-            parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
+        let borderColor = this._parameters.hasOwnProperty("_borderColor") ?
+            parameters["_borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
             
-        let backgroundColor = this._parameters.hasOwnProperty("backgroundColor") ?
-            parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
+        let backgroundColor = this._parameters.hasOwnProperty("_backgroundColor") ?
+            parameters["_backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
 
         // let spriteAlignment = THREE.SpriteAlignment.topLeft;
 
@@ -239,9 +239,9 @@ export class mindTopic {
         topic._fontSize = this._fontSize;
         topic._parent = this._parent;
         topic._textColor = this._textColor.slice();
-        topic._border = this._border;
+        topic._borderColor = this._borderColor;
         topic._icon = this._icon;
-        topic._subtopic = this._subtopic;
+        topic._message = this._message;
 
         return topic;
     }

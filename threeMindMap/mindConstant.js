@@ -27,6 +27,7 @@ export class mindConstant {
 
 
         mindConstant.DefaultPref.TextColor = [0, 0, 0];
+        mindConstant.DefaultPref.BorderColor = [0, 0, 0];
 
 
         // view mode

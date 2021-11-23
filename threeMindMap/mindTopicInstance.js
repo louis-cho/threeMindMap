@@ -114,8 +114,8 @@ export class mindTopicInstance {
             if (params._icon)
                 topic.setIcon(params._icon);
 
-            if (params._border)
-                topic.setBorder(params._border);
+            if (params._borderColor)
+                topic.setBorderColor(params._borderColor);
 
             if (params._mesh)
                 topic.setMesh(params._mesh);
@@ -130,6 +130,8 @@ export class mindTopicInstance {
         this._topic = topic;
         this._isCreated = true;
         this._isSelected = true;
+
+        return topic;
     }
 
     CreateMesh(bSubTopic, parameters) {
@@ -137,32 +139,38 @@ export class mindTopicInstance {
             parameters = {};
         }
 
-        let fontface = parameters.hasOwnProperty("fontface") ?
-            parameters["fontface"] : "Arial";
+        let fontface = parameters.hasOwnProperty("_fontface") ?
+            parameters["_fontface"] : "Arial";
 
-        let fontsize = parameters.hasOwnProperty("fontsize") ?
-            parameters["fontsize"] : 42;
+        let fontsize = parameters.hasOwnProperty("_fontsize") ?
+            parameters["_fontsize"] : 42;
 
-        let borderThickness = parameters.hasOwnProperty("borderThickness") ?
-            parameters["borderThickness"] : 4;
+        let borderThickness = parameters.hasOwnProperty("_borderThickness") ?
+            parameters["_borderThickness"] : 4;
 
-        let borderColor = parameters.hasOwnProperty("borderColor") ?
-            parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
+        let borderColor = parameters.hasOwnProperty("_borderColor") ?
+            { r: parameters["_borderColor"][0] * 255.0, g: parameters["_borderColor"][1] * 255.0, b: parameters["_borderColor"][2] * 255.0, a: 1.0 } : { r: 0, g: 0, b: 0, a: 1.0 };
 
-        let backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
-            parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
+        let backgroundColor = parameters.hasOwnProperty("_backgroundColor") ?
+            { r: parameters["_backgroundColor"][0] * 255.0, g: parameters["_backgroundColor"][1] * 255.0, b: parameters["_backgroundColor"][2] * 255.0, a: 1.0 } : { r: 255, g: 255, b: 255, a: 1.0 };
 
-        let message = parameters.hasOwnProperty("message") ?
-            parameters["message"] : "default text";
+        let topic = parameters.hasOwnProperty("_title") ?
+            parameters["_title"] : "default text";
 
         let canvas = document.createElement('canvas');
 
         let context = canvas.getContext('2d');
+        /*
+        mindLog(3, "borderColor");
+        mindLog(3, borderColor);
+        mindLog(3, "backgroundColor");
+        mindLog(3, backgroundColor);
+        */
 
         context.font = "Bold " + fontsize + "px " + fontface;
 
         // size 데이터 받아오기 (높이는 폰트 사이즈에만 영향을 받는다)
-        let metrics = context.measureText(message);
+        let metrics = context.measureText(topic);
         let textWidth = metrics.width * 3;
 
         // background color
@@ -182,7 +190,7 @@ export class mindTopicInstance {
         context.scale(-1, -1);
         context.textAlign = 'center';
         context.fillStyle = "rgba(0,0,0,1.0)";
-        context.fillText(message, 0, 0);
+        context.fillText(topic, 0, 0);
 
         // canvas contents will be used for a texture
         let texture = new THREE.Texture(canvas);

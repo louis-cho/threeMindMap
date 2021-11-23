@@ -23,7 +23,7 @@ export class mindPropertyBar2 {
 
         this._div_topic = document.getElementById(name + "_property_topic_text");
 
-        this._div_subtopic = document.getElementById(name + "_property_subtopic_paragraph");
+        this._div_message = document.getElementById(name + "_property_message_paragraph");
 
         this._div_position_x = document.getElementById(name + "_property_position_x");
 
@@ -51,6 +51,7 @@ export class mindPropertyBar2 {
             }
         });
 
+
         $(this._div_border_colorpicker).colorpicker({
             modal: true,
             buttonColorize: true,
@@ -59,7 +60,9 @@ export class mindPropertyBar2 {
                 event.target.style.backgroundColor = formatted.css;
                 // [formatted.rgb["r"], formatted.rgb["g"], formatted.rgb["b"]]);
             }
+
         });
+
 
         mindPropertyBar2.I = this;
     }
@@ -108,7 +111,7 @@ export class mindPropertyBar2 {
         if (this._viewmode === mindConstant.DefaultPref.WidgetView) {
             // topic div elem
 
-            // subtopic div elem
+            // message div elem
 
             // position div elem
 
@@ -125,15 +128,15 @@ export class mindPropertyBar2 {
             return;
 
         $(this._div_topic).val(this._app._topicList[pickedObject._id]._topic);
-        $(this._div_subtopic).text(this._app._topicList[pickedObject._id]._subtopic);
+        $(this._div_message).text(this._app._topicList[pickedObject._id]._message);
         $(this._div_position_x).val(this._app._topicList[pickedObject._id]._mesh.position.x);
         $(this._div_position_y).val(this._app._topicList[pickedObject._id]._mesh.position.y);
 
         let textColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._textColor);
-        let borderColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._color);
+        let borderColor = mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._borderColor);
 
         $(this._div_text_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._textColor));
-        $(this._div_border_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._color));
+        $(this._div_border_colorpicker).val(mindUtil.HTMLColorRGB(this._app._topicList[pickedObject._id]._borderColor));
 
         $(this._div_text_colorpicker).prop("value", textColor);
         $(this._div_border_colorpicker).prop("value", borderColor);
@@ -160,18 +163,18 @@ export class mindPropertyBar2 {
         ihtml[idx] = "</div>";
         idx++;
 
-        ihtml[idx] = "<div class='mindUI_Property_SubTopic' id='" + name + "_property_subtopic'>";
+        ihtml[idx] = "<div class='mindUI_Property_Message' id='" + name + "_property_message'>";
         idx++;
 
-        // subtopic label
-        ihtml[idx] = "<h3>SubTopic</h3>";
+        // message label
+        ihtml[idx] = "<h3>Message</h3>";
         idx++;
 
-        // subtopic text area
-        ihtml[idx] = "<div><p id='" + name + "_property_subtopic_paragraph'>";
+        // message text area
+        ihtml[idx] = "<div><p id='" + name + "_property_message_paragraph'>";
         idx++;
 
-        ihtml[idx] = mindConstant.Message.NoSubTopic;
+        ihtml[idx] = mindConstant.Message.NoMessage;
         idx++;
 
         ihtml[idx] = "</p>";
@@ -262,15 +265,15 @@ export class mindPropertyBar2 {
     }
 
     OnChangeTextColor(v) {
-        this._app._topicInstance._textColor = v;
+        this._app._topicInstance._topic._textColor = v;
     }
 
     OnChangeBorderColor(v) {
-        this._app._topicInstance._border = v;
+        this._app._topicInstance._topic._borderColor = v;
    }
 
-    OnChangeSubTopic(v) {
-        this._app._topicInstance._message = v;
+    OnChangeMessage(v) {
+        this._app._topicInstance._topic._message = v;
   }
 
     OnChangeTopic(v) {
@@ -280,8 +283,8 @@ export class mindPropertyBar2 {
     OnApply() {
         // topic
         this.OnChangeTopic($(this._div_topic).val());
-        // subtopic
-        this.OnChangeSubTopic($(this._div_subtopic).val());
+        // message
+        this.OnChangeMessage($(this._div_message).val());
         // position x
         this.OnChangePositionX($(this._div_position_x).val());
         // position y
@@ -298,12 +301,12 @@ export class mindPropertyBar2 {
         params._title = this._app._topicInstance._topic._title;
         params._message = this._app._topicInstance._topic._message;
         params._position = new THREE.Vector3(parseFloat($(this._div_position_x).val()), parseFloat($(this._div_position_y).val()), 0);
-        
+        params._textColor = this._app._topicInstance._topic._textColor;
+        params._borderColor = this._app._topicInstance._topic._borderColor;
 
 
         mindPropertyBar2.I._app._selectedTopic = mindPropertyBar2.I._app._topicInstance.CreateInstance(false, params);
         mindPropertyBar2.I._app._renderer._scene.add(mindPropertyBar2.I._app._topicInstance._topic._mesh);
-
     }
 
     _appTreeView(name) {
