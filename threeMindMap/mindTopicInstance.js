@@ -160,12 +160,6 @@ export class mindTopicInstance {
         let canvas = document.createElement('canvas');
 
         let context = canvas.getContext('2d');
-        /*
-        mindLog(3, "borderColor");
-        mindLog(3, borderColor);
-        mindLog(3, "backgroundColor");
-        mindLog(3, backgroundColor);
-        */
 
         context.font = "Bold " + fontsize + "px " + fontface;
 
@@ -186,11 +180,13 @@ export class mindTopicInstance {
         // 1.4는 baseline 아래에 나오는 g,j,p,q를 위한 factor다
 
         // translate context to center of canvas
+        /*
         context.translate(canvas.width / 2, canvas.height / 2);
         context.scale(-1, -1);
         context.textAlign = 'center';
         context.fillStyle = "rgba(0,0,0,1.0)";
         context.fillText(topic, 0, 0);
+        */
 
         // canvas contents will be used for a texture
         let texture = new THREE.Texture(canvas);
