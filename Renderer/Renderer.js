@@ -47,7 +47,16 @@ export class Renderer {
 
         this._canvas = this._renderer.domElement;
 
+        this._canvas2D = document.createElement('canvas');
+        this._canvas2D.width = scr_width;
+        this._canvas2D.height = scr_height;
+        this._canvas2D.style.position = "absolute";
+        this._canvas2D.style.left = 0 + 'px';
+        this._canvas2D.style.top = 0 + 'px';
+        this._canvas2D.style.zIndex = 1;
+
         this._container.appendChild(this._canvas);
+        this._container.appendChild(this._canvas2D);
 
         this._raycaster = new THREE.Raycaster();
         this._intersectedObjects = [];
@@ -149,6 +158,8 @@ export class Renderer {
         }
 
         this._renderer.setSize(width, height);
+        this._canvas2D.width = width;
+        this._canvas2D.height = height;
     }
 
     saveScreenshot(filename) {

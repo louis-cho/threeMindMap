@@ -157,8 +157,7 @@ export class mindTopicInstance {
         let topic = parameters.hasOwnProperty("_title") ?
             parameters["_title"] : "default text";
 
-        let canvas = document.createElement('canvas');
-
+        let canvas = this._app._renderer._canvas2D;
         let context = canvas.getContext('2d');
 
         context.font = "Bold " + fontsize + "px " + fontface;
@@ -176,17 +175,20 @@ export class mindTopicInstance {
             + borderColor.b + "," + borderColor.a + ")";
 
         context.lineWidth = borderThickness;
-        this.roundRect(context, 0, 0, textWidth + borderThickness, fontsize * 10 + borderThickness, 6);
-        // 1.4는 baseline 아래에 나오는 g,j,p,q를 위한 factor다
-
-        // translate context to center of canvas
-        /*
         context.translate(canvas.width / 2, canvas.height / 2);
+        this.roundRect(context, 0, 0, textWidth + borderThickness, fontsize * 10 + borderThickness, 6);
+
         context.scale(-1, -1);
+        // context.scale(-1, -1);
         context.textAlign = 'center';
         context.fillStyle = "rgba(0,0,0,1.0)";
         context.fillText(topic, 0, 0);
-        */
+        // 1.4는 baseline 아래에 나오는 g,j,p,q를 위한 factor다
+
+        // translate context to center of canvas
+        
+
+        
 
         // canvas contents will be used for a texture
         let texture = new THREE.Texture(canvas);
@@ -201,6 +203,7 @@ export class mindTopicInstance {
         return sprite;
     }
 
+    /*
     roundRect(ctx, x, y, w, h, r) {
         ctx.beginPath();
         ctx.moveTo(x + r, y);
@@ -214,6 +217,32 @@ export class mindTopicInstance {
         ctx.quadraticCurveTo(x, y, x + r, y);
         ctx.closePath();
         ctx.fill();
+        ctx.stroke();
+    }
+    */
+    /*
+    roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + w, y);
+        ctx.lineTo(x, y + h);
+        // ctx.lineTo(x, y + h);
+        // ctx.lineTo(x, y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }
+    */
+
+    roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(100, 100);
+        ctx.lineTo(0, 100);
+        ctx.lineTo(0, 0);
+        ctx.lineTo(100, 0);
+        ctx.lineTo(100, 100);
+        // ctx.lineTo(0, 10);
+        ctx.closePath();       // Line to bottom-left corner
         ctx.stroke();
     }
 
